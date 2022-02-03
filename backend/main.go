@@ -15,23 +15,25 @@ func main() {
 		ClientSecret: "Ho boy we should use .env or something before someone accidentally pushes its token",
 		Scopes:       []string{"user:read:follows"},
 	}
+
+	handler := Handler{Client: twitchClient.Client}
+	handler.HandleTemplates("./templates")
+
 	err := twitchClient.FetchToken()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	handler := Handler{
-		Client: twitchClient.Client,
-	}
-	var result *UserData
-	result, err = twitchClient.GetUserByLogin("Ayfri1015")
-	handler.HandleTemplates("./templates")
-	println(handler.tree.DefinedTemplates())
-	for name, template := range handler.Templates {
-		log.Println(name, template)
-	}
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Request:", r.URL.Path)
+		queries := r.URL.Query()
+		user := queries.Get("user")
+		if user == "" {
+			user = "Ayfri1015"
+		}
+		log.Println("User:", user)
+		result, err := twitchClient.GetUserByLogin(user)
+		if err != nil {
+			log.Fatal(err)
+		}
 		handler.ExecuteTemplate(w, "index", ToJSON(*result))
 	})
 	err = handler.Start(":8080")
