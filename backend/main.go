@@ -19,12 +19,23 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	handler := Handler{
+		Client: twitchClient.Client,
+	}
 	var result *UserData
 	result, err = twitchClient.GetUserByLogin("Ayfri1015")
-	log.Printf(`
-Name: %s
-ID: %s
-Type: %s
-Views: %d
-`, result.DisplayName, result.Id, result.BroadcasterType, result.ViewCount)
+	handler.HandleTemplates("./templates")
+	println(handler.tree.DefinedTemplates())
+	for name, template := range handler.Templates {
+		log.Println(name, template)
+	}
+	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Request:", r.URL.Path)
+		handler.ExecuteTemplate(w, "index", ToJSON(*result))
+	})
+	err = handler.Start(":8080")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

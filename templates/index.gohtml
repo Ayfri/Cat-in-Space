@@ -1,0 +1,18 @@
+{{define "index"}}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+        </head>
+        <body>
+            <div class="content">
+                <p class="debug">DEBUG</p>
+            </div>
+            <div class="content">
+                <p>{{- /*gotype: main.UserData */ -}}
+                    {{.}}</p>
+            </div>
+        </body>
+    </html>
+{{end}}

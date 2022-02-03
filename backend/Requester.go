@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -40,7 +41,12 @@ func (r *Requester) DoRequest() ([]byte, error) {
 	}
 
 	log.Printf("Requested: %s %s %s", req.Method, req.URL, resp.Status)
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			log.Printf("Error closing body: %s", err)
+		}
+	}(resp.Body)
 	return ioutil.ReadAll(resp.Body)
 }
 
