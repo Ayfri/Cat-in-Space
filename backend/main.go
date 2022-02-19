@@ -3,24 +3,31 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal(err)
+	}
 	twitchClient := TwitchClient{
 		Client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
-		ClientID:     "",
-		ClientSecret: "",
+		ClientID:     os.Getenv("CLIENT_ID"),
+		ClientSecret: os.Getenv("CLIENT_SECRET"),
 		Scopes:       []string{"user:read:follows"},
 	}
 
 	handler := Handler{Client: twitchClient.Client}
 	handler.HandleTemplates("../templates")
 
-	err := twitchClient.FetchToken()
+	err = twitchClient.FetchToken()
 	if err != nil {
 		log.Fatal(err)
 	}
