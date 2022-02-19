@@ -7,12 +7,15 @@ import (
 )
 
 func main() {
+	css := http.FileServer(http.Dir("../client/style"))
+	http.Handle("/static/", http.StripPrefix("/static/", css))
+
 	twitchClient := TwitchClient{
 		Client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
-		ClientID:     "",
-		ClientSecret: "",
+		ClientID:     "m8uvbc0xacxewrobzsfa5ps6al2dlb",
+		ClientSecret: "ou9zyyzat2c0vfpyc41wqax77rvzbm",
 		Scopes:       []string{"user:read:follows"},
 	}
 

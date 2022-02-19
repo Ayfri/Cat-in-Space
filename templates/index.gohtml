@@ -1,18 +1,42 @@
 {{define "index"}}
     <!DOCTYPE html>
     <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Title</title>
-        </head>
-        <body>
-            <div class="content">
-                <p class="debug">DEBUG</p>
-            </div>
-            <div class="content">
-                <p>{{- /*gotype: main.UserData */ -}}
-                    {{.}}</p>
-            </div>
-        </body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="/static/index.css" rel="stylesheet">
+    </head>
+    <body>
+
+    <div class="menu">
+        <div class="logo"></div>
+        <div class="ChannelGroup">
+            <h3>DREAM SMP</h3>
+            <span>dreamwastaken</span>
+            <span>georgenotfound</span>
+            <span>sapnap</span>
+            <span>badboyhalo</span>
+            <span>tommyinnit</span>
+            <span>tubbo</span>
+            <span>ranboolive</span>
+            <span>karljacobs</span>
+            <span>nihachu</span>
+            <span>quackity</span>
+            <span>more...</span>
+        </div>
+        <div class="ChannelGroup">
+            <h3>BEST CHANNEL</h3>
+            <span>ayfri1015</span>
+            <span>xhmyjae</span>
+            <span>antaww</span>
+            <span>amouranth</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <p>{{- /*gotype: main.UserData */ -}}
+            {{.}}</p>
+    </div>
+    </body>
     </html>
 {{end}}
