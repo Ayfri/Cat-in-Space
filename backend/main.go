@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"sort"
 	"time"
 )
 
@@ -29,17 +30,23 @@ func main() {
 		if user == "" {
 			user = "Ayfri1015"
 		}
-		log.Println("User:", user)
-		result, err := twitchClient.GetUserByLogin(user)
+		// Search channels by user argument in URL
+		result, err := twitchClient.SearchChannel(user)
 		if err != nil {
 			log.Fatal(err)
 		}
-		id := result.Id
-		emotes, err := twitchClient.GetEmotes(id)
+
+		// Fetch all channels to get other data than Id & DisplayName
+		result, err = twitchClient.GetUsers(result)
 		if err != nil {
 			log.Fatal(err)
 		}
-		handler.ExecuteTemplate(w, "index", ToJSON(*emotes))
+
+		// Sort channels by ViewCount
+		sort.Slice(*result, func(i, j int) bool {
+			return (*result)[i].ViewCount > (*result)[j].ViewCount
+		})
+		handler.ExecuteTemplate(w, "index", ToJSON(*result))
 	})
 	err = handler.Start(":8080")
 	if err != nil {

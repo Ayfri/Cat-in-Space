@@ -3,19 +3,24 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 )
 
+type Pair struct {
+	Key   string
+	Value string
+}
+
 type Requester struct {
-	Body      map[string]string
-	Client    http.Client
-	Headers   map[string]string
-	Method    string
-	URL       string
-	URLParams map[string]string
+	Body           map[string]string
+	Client         http.Client
+	Headers        map[string]string
+	Method         string
+	URL            string
+	URLParamsArray []Pair
+	URLParams      map[string]string
 }
 
 func (r *Requester) DoRequest() ([]byte, error) {
@@ -27,11 +32,14 @@ func (r *Requester) DoRequest() ([]byte, error) {
 	for k, v := range r.Headers {
 		req.Header.Set(k, v)
 	}
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	q := url.Values{}
 	for k, v := range r.URLParams {
 		q.Add(k, v)
+	}
+	for _, p := range r.URLParamsArray {
+		q.Add(p.Key, p.Value)
 	}
 	req.URL.RawQuery = q.Encode()
 
@@ -47,7 +55,11 @@ func (r *Requester) DoRequest() ([]byte, error) {
 			log.Printf("Error closing body: %s", err)
 		}
 	}(resp.Body)
-	return ioutil.ReadAll(resp.Body)
+	if resp.StatusCode == http.StatusBadRequest {
+		res, _ := io.ReadAll(resp.Body)
+		log.Printf("bad request: %s", string(res))
+	}
+	return io.ReadAll(resp.Body)
 }
 
 func (r *Requester) DoRequestTo(data interface{}) error {
