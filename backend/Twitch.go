@@ -53,6 +53,27 @@ type UserDataResponse struct {
 	Data []UserData `json:"data"`
 }
 
+type EmoteData struct {
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Images struct {
+		Url1X string `json:"url_1x"`
+		Url2X string `json:"url_2x"`
+		Url4X string `json:"url_4x"`
+	} `json:"images"`
+	Tier       string   `json:"tier"`
+	EmoteType  string   `json:"emote_type"`
+	EmoteSetId string   `json:"emote_set_id"`
+	Format     []string `json:"format"`
+	Scale      []string `json:"scale"`
+	ThemeMode  []string `json:"theme_mode"`
+}
+
+type EmoteResponse struct {
+	Data     []EmoteData `json:"data"`
+	Template string      `json:"template"`
+}
+
 func (client *TwitchClient) FetchToken() error {
 	requester := Requester{
 		Client: *client.Client,
@@ -93,4 +114,25 @@ func (client *TwitchClient) GetUserByLogin(login string) (*UserData, error) {
 		return nil, err
 	}
 	return &result.Data[0], nil
+}
+
+func (client *TwitchClient) GetEmotes(id string) (*EmoteResponse, error) {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/chat/emotes",
+		URLParams: map[string]string{
+			"broadcaster_id": id,
+		},
+	}
+	result := &EmoteResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }

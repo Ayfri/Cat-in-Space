@@ -11,13 +11,13 @@ func main() {
 		Client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
-		ClientID:     "My little id :>",
-		ClientSecret: "Ho boy we should use .env or something before someone accidentally pushes its token",
+		ClientID:     "",
+		ClientSecret: "",
 		Scopes:       []string{"user:read:follows"},
 	}
 
 	handler := Handler{Client: twitchClient.Client}
-	handler.HandleTemplates("./templates")
+	handler.HandleTemplates("../templates")
 
 	err := twitchClient.FetchToken()
 	if err != nil {
@@ -34,7 +34,12 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		handler.ExecuteTemplate(w, "index", ToJSON(*result))
+		id := result.Id
+		emotes, err := twitchClient.GetEmotes(id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		handler.ExecuteTemplate(w, "index", ToJSON(*emotes))
 	})
 	err = handler.Start(":8080")
 	if err != nil {
