@@ -10,7 +10,7 @@ body {
     background-color: #240046;
     width: 18vw;
     height: 100vh;
-    font-size: 1.5vw;
+    font-size: 1vw;
 }
 
 .logo {
@@ -19,10 +19,9 @@ body {
     height: 9%;
 }
 
-.menu span {
-    margin: 0;
-    padding: 3% 0;
+.menu span:not(.AddMore) {
     color: #e9ebf0;
+    margin: 3% 6%;
 }
 
 .ChannelGroup {
@@ -34,10 +33,16 @@ body {
 .ChannelGroup h3 {
     color: #565559;
     font-weight: bold;
+    margin: 5% 0 1% 0;
 }
 
 .ChannelGroup span {
     cursor: pointer;
+}
+
+.AddMore {
+    color: #8C50BC;
+    font-size: 100%;
 }
 
 /* CONTENT */

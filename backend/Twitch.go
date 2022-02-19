@@ -116,6 +116,36 @@ func (client *TwitchClient) GetUserByLogin(login string) (*UserData, error) {
 	return &result.Data[0], nil
 }
 
+func (client *TwitchClient) GetUsersById(ids []string) (*[]UserData, error) {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/users",
+	}
+	for _, login := range ids {
+		requester.URLParamsArray = append(requester.URLParamsArray, Pair{"id", login})
+	}
+
+	result := &UserDataResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		return nil, err
+	}
+	return &result.Data, nil
+}
+
+func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
+	var names []string
+	for _, user := range *users {
+		names = append(names, user.Id)
+	}
+	return client.GetUsersById(names)
+}
+
 func (client *TwitchClient) GetEmotes(id string) (*EmoteResponse, error) {
 	requester := Requester{
 		Client: *client.Client,
@@ -135,4 +165,26 @@ func (client *TwitchClient) GetEmotes(id string) (*EmoteResponse, error) {
 		return nil, err
 	}
 	return result, nil
+}
+
+func (client *TwitchClient) SearchChannel(query string) (*[]UserData, error) {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/search/channels",
+		URLParams: map[string]string{
+			"query": query,
+			"first": "100",
+		},
+	}
+	result := &UserDataResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		return nil, err
+	}
+	return &result.Data, nil
 }

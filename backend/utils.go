@@ -7,7 +7,7 @@ import (
 )
 
 func ToJSON(v interface{}) template.JS {
-	r, err := json.Marshal(v)
+	r, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		return template.JS("Cannot convert to JSON : " + fmt.Sprint(v))
 	}
