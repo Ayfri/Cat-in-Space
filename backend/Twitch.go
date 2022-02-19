@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -35,6 +36,37 @@ func (response *TokenResponse) GetFormattedToken() string {
 	return t + " " + response.AccessToken
 }
 
+type EmoteData struct {
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Images struct {
+		Url1X string `json:"url_1x"`
+		Url2X string `json:"url_2x"`
+		Url4X string `json:"url_4x"`
+	} `json:"images"`
+	Tier       string   `json:"tier"`
+	EmoteType  string   `json:"emote_type"`
+	EmoteSetId string   `json:"emote_set_id"`
+	Format     []string `json:"format"`
+	Scale      []string `json:"scale"`
+	ThemeMode  []string `json:"theme_mode"`
+}
+
+type FollowersResponse struct {
+	Total int `json:"total"`
+	Data  []struct {
+		FromId     string    `json:"from_id"`
+		FromLogin  string    `json:"from_login"`
+		FromName   string    `json:"from_name"`
+		ToId       string    `json:"to_id"`
+		ToName     string    `json:"to_name"`
+		FollowedAt time.Time `json:"followed_at"`
+	} `json:"data"`
+	Pagination struct {
+		Cursor string `json:"cursor"`
+	} `json:"pagination"`
+}
+
 type UserData struct {
 	Id              string    `json:"id"`
 	Login           string    `json:"login"`
@@ -51,22 +83,6 @@ type UserData struct {
 
 type UserDataResponse struct {
 	Data []UserData `json:"data"`
-}
-
-type EmoteData struct {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Images struct {
-		Url1X string `json:"url_1x"`
-		Url2X string `json:"url_2x"`
-		Url4X string `json:"url_4x"`
-	} `json:"images"`
-	Tier       string   `json:"tier"`
-	EmoteType  string   `json:"emote_type"`
-	EmoteSetId string   `json:"emote_set_id"`
-	Format     []string `json:"format"`
-	Scale      []string `json:"scale"`
-	ThemeMode  []string `json:"theme_mode"`
 }
 
 type EmoteResponse struct {
@@ -93,6 +109,49 @@ func (client *TwitchClient) FetchToken() error {
 	}
 	client.Token = result
 	return nil
+}
+
+func (client *TwitchClient) GetEmotes(id string) (*EmoteResponse, error) {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/chat/emotes",
+		URLParams: map[string]string{
+			"broadcaster_id": id,
+		},
+	}
+	result := &EmoteResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func (client *TwitchClient) GetFollowers(id string, count int) (*FollowersResponse, error) {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/users/follows",
+		URLParams: map[string]string{
+			"first": strconv.Itoa(count),
+			"to_id": id,
+		},
+	}
+	result := &FollowersResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func (client *TwitchClient) GetUserByLogin(login string) (*UserData, error) {
@@ -144,27 +203,6 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 		names = append(names, user.Id)
 	}
 	return client.GetUsersById(names)
-}
-
-func (client *TwitchClient) GetEmotes(id string) (*EmoteResponse, error) {
-	requester := Requester{
-		Client: *client.Client,
-		Headers: map[string]string{
-			"Authorization": client.Token.GetFormattedToken(),
-			"Client-ID":     client.ClientID,
-		},
-		Method: "GET",
-		URL:    "https://api.twitch.tv/helix/chat/emotes",
-		URLParams: map[string]string{
-			"broadcaster_id": id,
-		},
-	}
-	result := &EmoteResponse{}
-	err := requester.DoRequestTo(result)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }
 
 func (client *TwitchClient) SearchChannel(query string) (*[]UserData, error) {
