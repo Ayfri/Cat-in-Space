@@ -3,29 +3,38 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	css := http.FileServer(http.Dir("../client/style"))
 	http.Handle("/static/", http.StripPrefix("/static/", css))
 
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	twitchClient := TwitchClient{
 		Client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
-		ClientID:     "m8uvbc0xacxewrobzsfa5ps6al2dlb",
-		ClientSecret: "ou9zyyzat2c0vfpyc41wqax77rvzbm",
+		ClientID:     os.Getenv("CLIENT_ID"),
+		ClientSecret: os.Getenv("CLIENT_SECRET"),
 		Scopes:       []string{"user:read:follows"},
 	}
 
 	handler := Handler{Client: twitchClient.Client}
 	handler.HandleTemplates("../templates")
 
-	err := twitchClient.FetchToken()
+	err = twitchClient.FetchToken()
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
 		queries := r.URL.Query()
 		user := queries.Get("user")
@@ -42,7 +51,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		handler.ExecuteTemplate(w, "index", ToJSON(*emotes))
+		handler.ExecuteTemplate(w, "index", *emotes)
 	})
 	err = handler.Start(":8080")
 	if err != nil {
