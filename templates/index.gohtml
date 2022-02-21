@@ -49,6 +49,17 @@
                                 </div>
                             </div>
                         {{end}}
+                    {{else}}
+                        {{range .DreamSmp}}
+                            <div>
+                                <div class="ProfilePic">
+                                </div>
+                                <div class="StreamerDescription">
+                                    <h3 class="StreamerName">{{.DisplayName}}</h3>
+                                    <p class="StreamerBio">{{.Description}}</p>
+                                </div>
+                            </div>
+                        {{end}}
                     {{end}}
                 </div>
             </div>
