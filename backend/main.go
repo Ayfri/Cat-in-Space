@@ -10,8 +10,8 @@ import (
 )
 
 type DataState struct {
-	BestChannels []string
-	DreamSmp     []string
+	BestChannels []UserData
+	DreamSmp     []UserData
 	Results      []UserData
 	Search       string
 }
@@ -49,26 +49,36 @@ func main() {
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)
-		dataState.DreamSmp = append(dataState.DreamSmp, userdata.DisplayName)
+		dataState.DreamSmp = append(dataState.DreamSmp, *userdata)
 	}
 
 	for _, s := range BestChannel {
 		userdata, _ := twitchClient.GetUserByLogin(s)
-		dataState.BestChannels = append(dataState.BestChannels, userdata.DisplayName)
+		dataState.BestChannels = append(dataState.BestChannels, *userdata)
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
-		search := r.FormValue("search")
-		if search != "" {
-			dataState.Search = search
+		if r.Method == "GET" {
+			dataState.Search = ""
+			handler.ExecuteTemplate(w, "index", dataState)
+		} else if r.Method == "POST" {
+			err := r.ParseForm()
+			if err != nil {
+				log.Fatal(err)
+			}
+			dataState.Search = r.Form.Get("search")
+			if dataState.Search == "" {
+				http.Redirect(w, r, "/", http.StatusSeeOther)
+				return
+			}
+
 			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search)
 			if err != nil {
 				log.Fatal(err)
 			}
 			dataState.Results = *results
+			handler.ExecuteTemplate(w, "index", dataState)
 		}
-
-		handler.ExecuteTemplate(w, "index", dataState)
 	})
 
 	err = handler.Start(":8080")

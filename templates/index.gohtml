@@ -15,14 +15,14 @@
                 <div class="ChannelGroup">
                     <h3>DREAM SMP</h3>
                     {{range .DreamSmp}}
-                        <span>{{.}}</span>
+                        <span>{{.DisplayName}}</span>
                     {{end}}
                     <span class="AddMore">more...</span>
                 </div>
                 <div class="ChannelGroup">
                     <h3>BEST CHANNEL</h3>
                     {{range .BestChannels}}
-                        <span>{{.}}</span>
+                        <span>{{.DisplayName}}</span>
                     {{end}}
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="AllStreamers">
-                    {{if ne (len .Results) 0}}
+                    {{if .Search}}
                         {{range .Results}}
                             <div class="Streamer">
                                 <div class="ProfilePic">
