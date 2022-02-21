@@ -10,13 +10,15 @@ import (
 )
 
 type DataState struct {
-	DreamSmp []string
-	BestChannels []string
+	DreamSmp []UserData
+	BestChannels []UserData
 }
 
 func main() {
 	css := http.FileServer(http.Dir("../client/style"))
 	http.Handle("/static/", http.StripPrefix("/static/", css))
+	js := http.FileServer(http.Dir("../client/scripts"))
+	http.Handle("/js/", http.StripPrefix("/js/", js))
 
 	err := godotenv.Load("../.env")
 	if err != nil {
@@ -41,18 +43,18 @@ func main() {
 	}
 
 	DreamSmp := []string{"dreamwastaken", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity"}
-	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "amouranth"}
+	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth"}
 
 	dataState := DataState{}
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)
-		dataState.DreamSmp = append(dataState.DreamSmp, userdata.DisplayName)
+		dataState.DreamSmp = append(dataState.DreamSmp, *userdata)
 	}
 
 	for _, s := range BestChannel {
 		userdata, _ := twitchClient.GetUserByLogin(s)
-		dataState.BestChannels = append(dataState.BestChannels, userdata.DisplayName)
+		dataState.BestChannels = append(dataState.BestChannels, *userdata)
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {

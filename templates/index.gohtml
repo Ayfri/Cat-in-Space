@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <link href="/static/index.css" rel="stylesheet">
+        <script defer src="/js/index.js"></script>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -15,28 +16,15 @@
         <div class="ChannelGroup">
             <h3>DREAM SMP</h3>
             {{range .DreamSmp}}
-                <span>{{.}}</span>
+                <span>{{.DisplayName}}</span>
             {{end}}
-{{/*            <span>georgenotfound</span>*/}}
-{{/*            <span>sapnap</span>*/}}
-{{/*            <span>badboyhalo</span>*/}}
-{{/*            <span>tommyinnit</span>*/}}
-{{/*            <span>tubbo</span>*/}}
-{{/*            <span>ranboolive</span>*/}}
-{{/*            <span>karljacobs</span>*/}}
-{{/*            <span>nihachu</span>*/}}
-{{/*            <span>quackity</span>*/}}
             <span class="AddMore">more...</span>
         </div>
         <div class="ChannelGroup">
             <h3>BEST CHANNEL</h3>
             {{range .BestChannels}}
-                <span>{{.}}</span>
+                <span>{{.DisplayName}}</span>
             {{end}}
-{{/*            <span>ayfri1015</span>*/}}
-{{/*            <span>xhmyjae</span>*/}}
-{{/*            <span>antaww</span>*/}}
-{{/*            <span>amouranth</span>*/}}
         </div>
     </div>
 
@@ -46,86 +34,16 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
         <div class="AllStreamers">
-            <div>
-                <div class="ProfilePic">
+            {{range .DreamSmp}}
+                <div>
+                    <div class="ProfilePic">
+                    </div>
+                    <div class="StreamerDescription">
+                        <h3 class="StreamerName">{{.DisplayName}}</h3>
+                        <p class="StreamerBio">{{.Description}}</p>
+                    </div>
                 </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
+            {{end}}
         </div>
     </div>
     </body>
