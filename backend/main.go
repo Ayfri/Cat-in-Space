@@ -20,6 +20,9 @@ func main() {
 	css := http.FileServer(http.Dir("../client/style"))
 	http.Handle("/static/", http.StripPrefix("/static/", css))
 
+	js := http.FileServer(http.Dir("../client/scripts"))
+	http.Handle("/js/", http.StripPrefix("/js/", js))
+
 	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal(err)

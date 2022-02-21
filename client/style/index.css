@@ -55,9 +55,10 @@ body {
 
 .content > div:first-child {
     margin: 1.5vw;
+    display: flex;
 }
 
-#filter {
+.searchBox {
     border-radius: 0.5vw;
     width: 20vw;
     height: 1.5vw;
@@ -65,13 +66,14 @@ body {
     border: black;
 }
 
-#filter + button {
+form + button {
     border-radius: 0.5vw;
     width: 2vw;
     height: 1.5vw;
     background-color: #9D4EDD;
     border: black;
     cursor: pointer;
+    margin-left: 0.5vw;
 }
 
 .AllStreamers {
@@ -81,7 +83,7 @@ body {
     flex-wrap: wrap;
 }
 
-.AllStreamers > div {
+.AllStreamers > a {
     width: 17vw;
     height: 11vw;
     background-color: #350C63;
@@ -91,6 +93,7 @@ body {
     align-items: center;
     padding: 1%;
     margin: 2vw;
+    cursor: pointer;
 }
 
 .StreamerDescription {
@@ -106,6 +109,8 @@ body {
 
 .StreamerName {
     font-weight: bold;
+    width: 90%;
+    overflow-wrap: break-word;
 }
 
 .StreamerBio {

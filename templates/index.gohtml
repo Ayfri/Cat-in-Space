@@ -5,6 +5,7 @@
             <meta charset="UTF-8">
             <title>Title</title>
             <link href="/static/index.css" rel="stylesheet">
+            <script defer src="/js/index.js"></script>
             <link rel="stylesheet"
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
@@ -39,26 +40,27 @@
                 <div class="AllStreamers">
                     {{if .Search}}
                         {{range .Results}}
-                            <div class="Streamer">
+                            <a class="Streamer">
                                 <div class="ProfilePic">
                                     <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                                </div>
-                                <div class="StreamerDescription">
-                                    <a class="StreamerName" href="https://twitch.tv/{{.Login}}">{{.DisplayName}}</a>
-                                    <p class="StreamerBio">{{.Description}}</p>
-                                </div>
-                            </div>
-                        {{end}}
-                    {{else}}
-                        {{range .DreamSmp}}
-                            <div>
-                                <div class="ProfilePic">
                                 </div>
                                 <div class="StreamerDescription">
                                     <h3 class="StreamerName">{{.DisplayName}}</h3>
                                     <p class="StreamerBio">{{.Description}}</p>
                                 </div>
-                            </div>
+                            </a>
+                        {{end}}
+                    {{else}}
+                        {{range .DreamSmp}}
+                            <a>
+                                <div class="ProfilePic">
+                                    <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                                </div>
+                                <div class="StreamerDescription">
+                                    <h3 class="StreamerName">{{.DisplayName}}</h3>
+                                    <p class="StreamerBio">{{.Description}}</p>
+                                </div>
+                            </a>
                         {{end}}
                     {{end}}
                 </div>
