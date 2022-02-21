@@ -14,24 +14,29 @@
         <div class="logo"></div>
         <div class="ChannelGroup">
             <h3>DREAM SMP</h3>
-            <span>dreamwastaken</span>
-            <span>georgenotfound</span>
-            <span>sapnap</span>
-            <span>badboyhalo</span>
-            <span>tommyinnit</span>
-            <span>tubbo</span>
-            <span>ranboolive</span>
-            <span>karljacobs</span>
-            <span>nihachu</span>
-            <span>quackity</span>
+            {{range .DreamSmp}}
+                <span>{{.}}</span>
+            {{end}}
+{{/*            <span>georgenotfound</span>*/}}
+{{/*            <span>sapnap</span>*/}}
+{{/*            <span>badboyhalo</span>*/}}
+{{/*            <span>tommyinnit</span>*/}}
+{{/*            <span>tubbo</span>*/}}
+{{/*            <span>ranboolive</span>*/}}
+{{/*            <span>karljacobs</span>*/}}
+{{/*            <span>nihachu</span>*/}}
+{{/*            <span>quackity</span>*/}}
             <span class="AddMore">more...</span>
         </div>
         <div class="ChannelGroup">
             <h3>BEST CHANNEL</h3>
-            <span>ayfri1015</span>
-            <span>xhmyjae</span>
-            <span>antaww</span>
-            <span>amouranth</span>
+            {{range .BestChannels}}
+                <span>{{.}}</span>
+            {{end}}
+{{/*            <span>ayfri1015</span>*/}}
+{{/*            <span>xhmyjae</span>*/}}
+{{/*            <span>antaww</span>*/}}
+{{/*            <span>amouranth</span>*/}}
         </div>
     </div>
 
