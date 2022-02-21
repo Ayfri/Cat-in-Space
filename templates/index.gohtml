@@ -1,66 +1,57 @@
 {{define "index"}}
     <!DOCTYPE html>
     <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-        <link href="/static/index.css" rel="stylesheet">
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+            <link href="/static/index.css" rel="stylesheet">
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        </head>
+        <body>
 
-    <div class="menu">
-        <div class="logo"></div>
-        <div class="ChannelGroup">
-            <h3>DREAM SMP</h3>
-            <span>dreamwastaken</span>
-            <span>georgenotfound</span>
-            <span>sapnap</span>
-            <span>badboyhalo</span>
-            <span>tommyinnit</span>
-            <span>tubbo</span>
-            <span>ranboolive</span>
-            <span>karljacobs</span>
-            <span>nihachu</span>
-            <span>quackity</span>
-            <span class="AddMore">more...</span>
-        </div>
-        <div class="ChannelGroup">
-            <h3>BEST CHANNEL</h3>
-            <span>ayfri1015</span>
-            <span>xhmyjae</span>
-            <span>antaww</span>
-            <span>amouranth</span>
-        </div>
-    </div>
+            <div class="menu">
+                <div class="logo"></div>
+                <div class="ChannelGroup">
+                    <h3>DREAM SMP</h3>
+                    {{range .DreamSmp}}
+                        <span>{{.}}</span>
+                    {{end}}
+                    <span class="AddMore">more...</span>
+                </div>
+                <div class="ChannelGroup">
+                    <h3>BEST CHANNEL</h3>
+                    {{range .BestChannels}}
+                        <span>{{.}}</span>
+                    {{end}}
+                </div>
+            </div>
 
-    <div class="content">
-        <div>
-            <form method="post">
-                <label for="search">
-                    <input type="text" name="search" placeholder=" Type a streamer name..." class="searchBox">
-                </label>
-            </form>
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        {{- /* gotype: main.DataState */}}
-        <div class="AllStreamers">
-            {{if ne (len .Results) 0}}
-                {{range .Results}}
-                    <div class="Streamer">
-                        <div class="ProfilePic">
-                            <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                        </div>
-                        <div class="StreamerDescription">
-                            <a class="StreamerName" href="https://twitch.tv/{{.Login}}">{{.DisplayName}}</a>
-                            <p class="StreamerBio">{{.Description}}</p>
-                        </div>
-                    </div>
-                {{end}}
-            {{end}}
-        </div>
-    </div>
-    </body>
+            <div class="content">
+                <div>
+                    <form method="post">
+                        <label for="search">
+                            <input type="text" name="search" placeholder=" Type a streamer name..." class="searchBox">
+                        </label>
+                    </form>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                <div class="AllStreamers">
+                    {{if ne (len .Results) 0}}
+                        {{range .Results}}
+                            <div class="Streamer">
+                                <div class="ProfilePic">
+                                    <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                                </div>
+                                <div class="StreamerDescription">
+                                    <a class="StreamerName" href="https://twitch.tv/{{.Login}}">{{.DisplayName}}</a>
+                                    <p class="StreamerBio">{{.Description}}</p>
+                                </div>
+                            </div>
+                        {{end}}
+                    {{end}}
+                </div>
+            </div>
+        </body>
     </html>
 {{end}}
