@@ -26,6 +26,13 @@ body {
     margin: 3% 6%;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .ChannelGroup {
     padding: 0 5%;
     display: flex;
@@ -53,12 +60,12 @@ body {
     width: 82vw;
 }
 
-.content > div:first-child {
-    margin: 1.5vw;
+.search-menu {
+    margin: 2vw;
     display: flex;
 }
 
-.searchBox {
+.search-box {
     border-radius: 0.5vw;
     width: 20vw;
     height: 1.5vw;
@@ -68,11 +75,11 @@ body {
     transition: background-color 0.25s;
 }
 
-.searchBox::placeholder {
+.search-box::placeholder {
     color: #e5e5e5;
 }
 
-.searchBox:not(:placeholder-shown) {
+.search-box:not(:placeholder-shown) {
     background-color: #9D4EDD;
 }
 
@@ -89,7 +96,7 @@ form + button {
 .AllStreamers {
     width: 100%;
     display: flex;
-    margin: 4vw;
+    margin: 3vw;
     flex-wrap: wrap;
 }
 
