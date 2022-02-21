@@ -62,8 +62,18 @@ body {
     border-radius: 0.5vw;
     width: 20vw;
     height: 1.5vw;
-    background-color: #9D4EDD;
+    background-color: #7331a8;
     border: black;
+    color: white;
+    transition: background-color 0.25s;
+}
+
+.searchBox::placeholder {
+    color: #e5e5e5;
+}
+
+.searchBox:not(:placeholder-shown) {
+    background-color: #9D4EDD;
 }
 
 form + button {
