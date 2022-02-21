@@ -130,7 +130,7 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	return client.GetUsersById(names)
 }
 
-func (client *TwitchClient) SearchChannel(query string) (*[]UserData, error) {
+func (client *TwitchClient) SearchChannels(query string) (*[]UserData, error) {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -150,4 +150,12 @@ func (client *TwitchClient) SearchChannel(query string) (*[]UserData, error) {
 		return nil, err
 	}
 	return &result.Data, nil
+}
+
+func (client *TwitchClient) SearchChannelsAndFetch(query string) (*[]UserData, error) {
+	channels, err := client.SearchChannels(query)
+	if err != nil {
+		return nil, err
+	}
+	return client.GetUsers(channels)
 }

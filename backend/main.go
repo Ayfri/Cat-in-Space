@@ -9,6 +9,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type DataState struct {
+	Search  string
+	Results []UserData
+}
+
 func main() {
 	css := http.FileServer(http.Dir("../client/style"))
 	http.Handle("/static/", http.StripPrefix("/static/", css))
@@ -17,6 +22,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	dataState := DataState{}
 
 	twitchClient := TwitchClient{
 		Client: &http.Client{
@@ -36,22 +43,17 @@ func main() {
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
-		queries := r.URL.Query()
-		user := queries.Get("user")
-		if user == "" {
-			user = "Ayfri1015"
+		search := r.FormValue("search")
+		if search != "" {
+			dataState.Search = search
+			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search)
+			if err != nil {
+				log.Fatal(err)
+			}
+			dataState.Results = *results
 		}
-		log.Println("User:", user)
-		result, err := twitchClient.GetUserByLogin(user)
-		if err != nil {
-			log.Fatal(err)
-		}
-		id := result.Id
-		emotes, err := twitchClient.GetEmotes(id)
-		if err != nil {
-			log.Fatal(err)
-		}
-		handler.ExecuteTemplate(w, "index", *emotes)
+
+		handler.ExecuteTemplate(w, "index", dataState)
 	})
 	err = handler.Start(":8080")
 	if err != nil {

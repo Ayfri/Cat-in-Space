@@ -37,90 +37,28 @@
 
     <div class="content">
         <div>
-            <input type="text" placeholder=" Type a streamer name..." id="filter">
+            <form method="post">
+                <label for="search">
+                    <input type="text" name="search" placeholder=" Type a streamer name..." class="searchBox">
+                </label>
+            </form>
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
+        {{- /* gotype: main.DataState */}}
         <div class="AllStreamers">
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
-            <div>
-                <div class="ProfilePic">
-                </div>
-                <div class="StreamerDescription">
-                    <div class="StreamerName">Streamer Name</div>
-                    <div class="StreamerBio">Bllablablabalabla blablba lblab blabblbal lblablabla blablaabaal</div>
-                </div>
-            </div>
+            {{if ne (len .Results) 0}}
+                {{range .Results}}
+                    <div class="Streamer">
+                        <div class="ProfilePic">
+                            <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                        </div>
+                        <div class="StreamerDescription">
+                            <a class="StreamerName" href="https://twitch.tv/{{.Login}}">{{.DisplayName}}</a>
+                            <p class="StreamerBio">{{.Description}}</p>
+                        </div>
+                    </div>
+                {{end}}
+            {{end}}
         </div>
     </div>
     </body>
