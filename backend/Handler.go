@@ -24,10 +24,10 @@ func (h *Handler) ExecuteTemplate(w http.ResponseWriter, name string, data inter
 	}
 }
 
-func (h *Handler) HandleResourcesDir(dir string) {
+func (h *Handler) HandleResourcesDir(dir string, dest string) {
 	h.ResourceDirectories[dir] = dir
 	fileServer := http.FileServer(http.Dir(dir))
-	http.Handle(dir, http.StripPrefix(dir, fileServer))
+	http.Handle(dest, http.StripPrefix(dest, fileServer))
 }
 
 func (h *Handler) HandleTemplate(filename string) *template.Template {

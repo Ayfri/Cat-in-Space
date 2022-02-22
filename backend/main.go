@@ -19,15 +19,6 @@ type DataState struct {
 }
 
 func main() {
-	css := http.FileServer(http.Dir("../client/style"))
-	http.Handle("/static/", http.StripPrefix("/static/", css))
-
-	js := http.FileServer(http.Dir("../client/scripts"))
-	http.Handle("/js/", http.StripPrefix("/js/", js))
-
-	resources := http.FileServer(http.Dir("../backend/resources/"))
-	http.Handle("/resources/", http.StripPrefix("/resources/", resources))
-
 	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal(err)
@@ -46,6 +37,10 @@ func main() {
 
 	handler := Handler{Client: twitchClient.Client}
 	handler.HandleTemplates("../templates")
+
+	handler.HandleResourcesDir("../client/style", "/static/")
+	handler.HandleResourcesDir("../client/js", "/js/")
+	handler.HandleResourcesDir("../resources", "/resources/")
 
 	err = twitchClient.FetchToken()
 	if err != nil {
