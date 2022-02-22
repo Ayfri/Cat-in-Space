@@ -49,7 +49,7 @@ func main() {
 	}
 
 	DreamSmp := []string{"dreamwastaken", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity"}
-	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kherrr_z", "amouranth"}
+	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth"}
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)

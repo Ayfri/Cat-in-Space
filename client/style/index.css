@@ -28,11 +28,6 @@ body {
     height: 10vh;
 }
 
-.menu span:not(.AddMore) {
-    color: #e9ebf0;
-    margin: 3% 6%;
-}
-
 .content {
     display: flex;
     flex-direction: column;
@@ -59,6 +54,12 @@ body {
 .AddMore {
     color: #8C50BC;
     font-size: 100%;
+}
+
+.streamer-link {
+    text-decoration: none;
+    color: #e9ebf0;
+    margin: 3% 6%;
 }
 
 /* CONTENT */
