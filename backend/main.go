@@ -39,7 +39,7 @@ func main() {
 	handler.HandleTemplates("../templates")
 
 	handler.HandleResourcesDir("../client/style", "/static/")
-	handler.HandleResourcesDir("../client/js", "/js/")
+	handler.HandleResourcesDir("../client/scripts", "/js/")
 	handler.HandleResourcesDir("../backend/resources", "/resources/")
 
 	err = twitchClient.FetchToken()

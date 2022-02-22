@@ -25,6 +25,9 @@ func (h *Handler) ExecuteTemplate(w http.ResponseWriter, name string, data inter
 }
 
 func (h *Handler) HandleResourcesDir(dir string, dest string) {
+	if h.ResourceDirectories == nil {
+		h.ResourceDirectories = make(map[string]string)
+	}
 	h.ResourceDirectories[dir] = dir
 	fileServer := http.FileServer(http.Dir(dir))
 	http.Handle(dest, http.StripPrefix(dest, fileServer))
