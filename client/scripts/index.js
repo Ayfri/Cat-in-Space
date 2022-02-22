@@ -13,7 +13,9 @@ hideStreamers = () => {
     let dreamsmp = document.querySelectorAll('.dream-smp');
     let dreamSmp = Array.prototype.slice.call(dreamsmp);
     let hidden = dreamSmp.slice(-3);
-    hidden.classList.add('dream-hidden');
+    for (let i = 0; i < hidden.length; i++) {
+        hidden[i].classList.add('dream-hidden');
+    }
 }
 
 
