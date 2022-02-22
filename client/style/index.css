@@ -90,6 +90,19 @@ body {
     align-items: center;
 }
 
+.search-form, .search-btn {
+    height: 1.5vw;
+    cursor: pointer;
+    margin-left: 0.5vw;
+    border: black;
+    border-radius: 0.5vw;
+}
+
+.search-form {
+    display: flex;
+    margin-right: 5vw;
+}
+
 .search-input {
     border-radius: 0.5vw;
     width: 20vw;
@@ -103,11 +116,9 @@ body {
 }
 
 .search-btn {
-    border-radius: 0.5vw;
     width: 2.5vw;
     height: 3.8vh;
-    margin-right: 5vw;
-    margin-left: 0.5vw;
+    background-color: #9D4EDD;
 }
 
 .search-input::placeholder {
@@ -122,16 +133,6 @@ body {
 
 .search-input:not(:placeholder-shown) {
     background-color: #9D4EDD;
-}
-
-form + button {
-    border-radius: 0.5vw;
-    width: 2vw;
-    height: 1.5vw;
-    background-color: #9D4EDD;
-    border: black;
-    cursor: pointer;
-    margin-left: 0.5vw;
 }
 
 .streamer-list {
