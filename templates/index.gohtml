@@ -32,19 +32,17 @@
                 <div class="search-menu">
                     <form method="post">
                         <label for="search">
-                            <input type="text" name="search" placeholder=" Type a streamer name..." class="search-box">
+                            <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..." class="search-input">
                         </label>
                     </form>
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="AllStreamers">
                     {{if .Search}}
                         {{range .Results}}
                             <a class="Streamer">
-                                <div class="ProfilePic">
-                                    <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                                </div>
-                                <div class="StreamerDescription">
+                                <img class="ProfilePic" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                                <div class="streamer-information">
                                     <h3 class="StreamerName">{{.DisplayName}}</h3>
                                     <p class="StreamerBio">{{.Description}}</p>
                                 </div>
@@ -52,10 +50,10 @@
                         {{end}}
                     {{else}}
                         {{range .DreamSmp}}
-                            <a>
+                            <a class="Streamer">
                                 <img class="ProfilePic" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
-                                <div class="StreamerDescription">
+                                <div class="streamer-information">
                                     <h3 class="StreamerName">{{.DisplayName}}</h3>
                                     <p class="StreamerBio">{{.Description}}</p>
                                 </div>

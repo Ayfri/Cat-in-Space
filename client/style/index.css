@@ -1,3 +1,8 @@
+:root {
+    --menu-width: 14vw;
+    --search-menu-width: 13vw;
+}
+
 /* MENU */
 
 body {
@@ -10,15 +15,17 @@ body {
 
 .menu {
     background-color: #240046;
-    width: 18vw;
-    height: auto;
+    width: var(--menu-width);
+    height: 100vh;
+    position: fixed;
+    overflow-y: hidden;
     font-size: 1vw;
 }
 
 .logo {
     background-color: #3F0C70;
     width: 100%;
-    height: 5vw;
+    height: 10vh;
 }
 
 .menu span:not(.AddMore) {
@@ -58,28 +65,51 @@ body {
 
 .content {
     width: 82vw;
+    margin-left: var(--menu-width);
 }
 
 .search-menu {
-    margin: 2vw;
+    background-color: #20003e;
+    width: 100vw;
+    height: 10vh;
+    overflow: hidden;
+    top: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.search-box {
+.search-input {
     border-radius: 0.5vw;
     width: 20vw;
-    height: 1.5vw;
+    height: 3.8vh;
     background-color: #7331a8;
+    padding: 4px;
+    box-sizing: border-box;
     border: black;
     color: white;
     transition: background-color 0.25s;
 }
 
-.search-box::placeholder {
-    color: #e5e5e5;
+.search-btn {
+    border-radius: 0.5vw;
+    width: 2.5vw;
+    height: 3.8vh;
+    margin-right: 5vw;
+    margin-left: 0.5vw;
 }
 
-.search-box:not(:placeholder-shown) {
+.search-input::placeholder {
+    color: #e5e5e5;
+    opacity: 1;
+    transition: opacity .12s;
+}
+
+.search-input:focus::placeholder {
+    opacity: 0;
+}
+
+.search-input:not(:placeholder-shown) {
     background-color: #9D4EDD;
 }
 
@@ -94,32 +124,32 @@ form + button {
 }
 
 .AllStreamers {
-    width: 100%;
     display: flex;
-    margin: 3vw;
     flex-wrap: wrap;
+    margin: 5vh 1vw;
+    justify-content: space-evenly;
 }
 
 .AllStreamers > a {
-    width: 17vw;
-    height: 11vw;
+    width: 19vw;
+    height: 10vw;
     background-color: #350C63;
     border-radius: 1.5vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 1%;
-    margin: 2vw;
+    margin: 1.8vw;
     cursor: pointer;
 }
 
-.StreamerDescription {
+.streamer-information {
     display: flex;
     flex-direction: column;
-    width: 8vw;
+    width: 10vw;
     align-items: center;
-    height: 90%;
-    justify-content: space-evenly;
+    height: 80%;
+    justify-content: space-around;
     font-size: 1vw;
     color: #EAE8E6;
 }
@@ -137,11 +167,7 @@ form + button {
 }
 
 .ProfilePic {
-    width: 5vw;
-    height: 5vw;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    background-color: #5A189A;
+    width: 6vw;
+    height: 6vw;
     border-radius: 100%;
 }
