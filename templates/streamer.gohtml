@@ -1,51 +1,17 @@
 {{define "streamer"}}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-        <link href="/static/index.css" rel="stylesheet">
-        <script defer src="/js/index.js"></script>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-
-    <div class="menu">
-        <div class="logo"></div>
-        <div class="ChannelGroup">
-            <h3>DREAM SMP</h3>
-            {{range .DreamSmp}}
-                <span>{{.DisplayName}}</span>
-            {{end}}
-            <span class="AddMore">more...</span>
+    <div>
+        <div class="ProfilePic">
+            <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
         </div>
-        <div class="ChannelGroup">
-            <h3>BEST CHANNEL</h3>
-            {{range .BestChannels}}
-                <span>{{.DisplayName}}</span>
-            {{end}}
+        <div>
+            {{.DisplayName}}
         </div>
     </div>
-
-    <div class="content">
-        <div>
-            <div class="ProfilePic">
-                <img src="{{.Streamer.ProfileImageUrl}}" alt="{{.Streamer.DisplayName}}">
-            </div>
-            <div>
-                {{.Streamer.DisplayName}}
-            </div>
-        </div>
-        <div>
-            {{.Streamer.Description}}
-        </div>
-        <div>
-            {{.Streamer.ViewCount}}
-            {{.Streamer.CreatedAt}}
-        </div>
+    <div>
+        {{.Description}}
     </div>
-
-    </body>
-    </html>
+    <div>
+        {{.ViewCount}}
+        {{.CreatedAt}}
+    </div>
 {{end}}

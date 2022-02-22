@@ -9,21 +9,21 @@
             <link rel="stylesheet"
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
-        <body>
 
+        <body>
             <div class="menu">
                 <div class="logo"></div>
                 <div class="ChannelGroup">
                     <h3>DREAM SMP</h3>
                     {{range .DreamSmp}}
-                        <span>{{.DisplayName}}</span>
+                        <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                     {{end}}
                     <span class="AddMore">more...</span>
                 </div>
                 <div class="ChannelGroup">
                     <h3>BEST CHANNEL</h3>
                     {{range .BestChannels}}
-                        <span>{{.DisplayName}}</span>
+                        <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                     {{end}}
                 </div>
             </div>
@@ -48,6 +48,8 @@
                                 </div>
                             </a>
                         {{end}}
+                    {{else if .Streamer}}
+                        {{template "streamer" .Streamer}}
                     {{else}}
                         {{range .DreamSmp}}
                             <a class="Streamer" href="/?name={{.Login}}">

@@ -14,7 +14,7 @@ type DataState struct {
 	DreamSmp     []UserData
 	Results      []UserData
 	Search       string
-	Streamer UserData
+	Streamer     UserData
 }
 
 func main() {
@@ -49,7 +49,7 @@ func main() {
 	}
 
 	DreamSmp := []string{"dreamwastaken", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity"}
-	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "amouranth"}
+	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kherrr_z", "amouranth"}
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)
@@ -69,13 +69,10 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			handler.ExecuteTemplate(w, "streamer", dataState)
-			return
 		}
 
 		if r.Method == "GET" {
 			dataState.Search = ""
-			handler.ExecuteTemplate(w, "index", dataState)
 		} else if r.Method == "POST" {
 			err := r.ParseForm()
 			if err != nil {
@@ -92,8 +89,8 @@ func main() {
 				log.Fatal(err)
 			}
 			dataState.Results = *results
-			handler.ExecuteTemplate(w, "index", dataState)
 		}
+		handler.ExecuteTemplate(w, "index", dataState)
 	})
 
 	err = handler.Start(":8080")
