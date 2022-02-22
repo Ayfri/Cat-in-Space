@@ -97,6 +97,9 @@ func (client *TwitchClient) GetUserByLogin(login string) (*UserData, error) {
 	if err != nil {
 		return nil, err
 	}
+	if len(result.Data) == 0 {
+		return nil, nil
+	}
 	return &result.Data[0], nil
 }
 

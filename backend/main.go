@@ -63,10 +63,12 @@ func main() {
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
 		queries := r.URL.Query()
 		if queries.Has("name") {
-			streamer, _ := twitchClient.GetUserByLogin(queries.Get("name"))
-			dataState.Streamer = *streamer
+			streamer, err := twitchClient.GetUserByLogin(queries.Get("name"))
 			if err != nil {
 				log.Fatal(err)
+			}
+			if streamer != nil {
+				dataState.Streamer = *streamer
 			}
 			dataState.ShowStreamer = true
 		} else if r.Method == "GET" {

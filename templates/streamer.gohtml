@@ -1,26 +1,30 @@
 {{define "streamer"}}
-    <div class="user-informations">
-        <div class="user-layout card">
-            <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-            <div class="user-important-infos">
-                <h1>
-                    {{.DisplayName}}
-                </h1>
-                <p class="followers"></p>
-                <p class="type">{{.BroadcasterType}}</p>
+    {{if not .Login}}
+        <h1 class="not-found">Streamer not found :(</h1>
+    {{else}}
+        <div class="user-informations">
+            <div class="user-layout card">
+                <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                <div class="user-important-infos">
+                    <h1>
+                        {{.DisplayName}}
+                    </h1>
+                    <p class="followers"></p>
+                    <p class="type">{{.BroadcasterType}}</p>
+                </div>
+            </div>
+            <p class="description card">
+                {{.Description}}
+            </p>
+            <div class="user-more-information card">
+                <div class="user-date-views sub-card">
+                    <p class="create-date">Créé le : {{.CreatedAt}}</p>
+                    <p class="view-count">
+                        Vues : {{.ViewCount}}
+                    </p>
+                </div>
+                <div class="emotes"></div>
             </div>
         </div>
-        <p class="description card">
-            {{.Description}}
-        </p>
-        <div class="user-more-information card">
-            <div class="user-date-views sub-card">
-                <p class="create-date">Créé le : {{.CreatedAt}}</p>
-                <p class="view-count">
-                    Vues : {{.ViewCount}}
-                </p>
-            </div>
-            <div class="emotes"></div>
-        </div>
-    </div>
+    {{end}}
 {{end}}

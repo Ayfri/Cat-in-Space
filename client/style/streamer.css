@@ -45,3 +45,10 @@
 .user-more-information {
     justify-content: space-between;
 }
+.not-found {
+    color: #bbb;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 15vh;
+    letter-spacing: 1px;
+}
