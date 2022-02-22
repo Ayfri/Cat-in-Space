@@ -25,6 +25,9 @@ func main() {
 	js := http.FileServer(http.Dir("../client/scripts"))
 	http.Handle("/js/", http.StripPrefix("/js/", js))
 
+	resources := http.FileServer(http.Dir("../backend/resources/"))
+	http.Handle("/resources/", http.StripPrefix("/resources/", resources))
+
 	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal(err)
