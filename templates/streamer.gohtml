@@ -31,19 +31,18 @@
     <div class="content">
         <div>
             <div class="ProfilePic">
-                <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                <img src="{{.Streamer.ProfileImageUrl}}" alt="{{.Streamer.DisplayName}}">
             </div>
             <div>
-                {{.DisplayName}}
+                {{.Streamer.DisplayName}}
             </div>
         </div>
         <div>
-            {{.Description}}
+            {{.Streamer.Description}}
         </div>
         <div>
-            {{.Views}}
-            {{.CreatedAt}}
-            {{.Emotes}}
+            {{.Streamer.ViewCount}}
+            {{.Streamer.CreatedAt}}
         </div>
     </div>
 

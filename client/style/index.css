@@ -111,6 +111,7 @@ form + button {
     padding: 1%;
     margin: 2vw;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .StreamerDescription {

@@ -14,6 +14,7 @@ type DataState struct {
 	DreamSmp     []UserData
 	Results      []UserData
 	Search       string
+	Streamer UserData
 }
 
 func main() {
@@ -61,6 +62,17 @@ func main() {
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
+		queries := r.URL.Query()
+		if queries.Has("name") {
+			streamer, _ := twitchClient.GetUserByLogin(queries.Get("name"))
+			dataState.Streamer = *streamer
+			if err != nil {
+				log.Fatal(err)
+			}
+			handler.ExecuteTemplate(w, "streamer", dataState)
+			return
+		}
+
 		if r.Method == "GET" {
 			dataState.Search = ""
 			handler.ExecuteTemplate(w, "index", dataState)

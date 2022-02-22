@@ -40,7 +40,7 @@
                 <div class="AllStreamers">
                     {{if .Search}}
                         {{range .Results}}
-                            <a class="Streamer">
+                            <a class="Streamer" href="/?name={{.Login}}">
                                 <div class="ProfilePic">
                                     <img src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                                 </div>
@@ -52,7 +52,7 @@
                         {{end}}
                     {{else}}
                         {{range .DreamSmp}}
-                            <a>
+                            <a  href="/?name={{.Login}}">
                                 <img class="ProfilePic" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
                                 <div class="StreamerDescription">
