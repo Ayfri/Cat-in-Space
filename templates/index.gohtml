@@ -32,37 +32,40 @@
                 <div class="search-menu">
                     <form method="post">
                         <label for="search">
-                            <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..." class="search-input">
+                            <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..."
+                                   class="search-input">
                         </label>
                     </form>
                     <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
-                <div class="AllStreamers">
-                    {{if .Search}}
-                        {{range .Results}}
-                            <a class="Streamer" href="/?name={{.Login}}">
-                                <img class="ProfilePic" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                                <div class="streamer-information">
-                                    <h3 class="StreamerName">{{.DisplayName}}</h3>
-                                    <p class="StreamerBio">{{.Description}}</p>
-                                </div>
-                            </a>
-                        {{end}}
-                    {{else if .ShowStreamer}}
-                        {{template "streamer" .Streamer}}
-                    {{else}}
-                        {{range .DreamSmp}}
-                            <a class="Streamer" href="/?name={{.Login}}">
-                                <img class="ProfilePic" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                {{if .ShowStreamer}}
+                    {{template "streamer" .Streamer}}
+                {{else}}
+                    <div class="AllStreamers">
+                        {{if .Search}}
+                            {{range .Results}}
+                                <a class="Streamer" href="/?name={{.Login}}">
+                                    <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                                    <div class="streamer-information">
+                                        <h3 class="StreamerName">{{.DisplayName}}</h3>
+                                        <p class="StreamerBio">{{.Description}}</p>
+                                    </div>
+                                </a>
+                            {{end}}
+                        {{else}}
+                            {{range .DreamSmp}}
+                                <a class="Streamer" href="/?name={{.Login}}">
+                                    <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
-                                <div class="streamer-information">
-                                    <h3 class="StreamerName">{{.DisplayName}}</h3>
-                                    <p class="StreamerBio">{{.Description}}</p>
-                                </div>
-                            </a>
+                                    <div class="streamer-information">
+                                        <h3 class="StreamerName">{{.DisplayName}}</h3>
+                                        <p class="StreamerBio">{{.Description}}</p>
+                                    </div>
+                                </a>
+                            {{end}}
                         {{end}}
-                    {{end}}
-                </div>
+                    </div>
+                {{end}}
             </div>
         </body>
     </html>
