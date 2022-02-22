@@ -15,6 +15,7 @@ type DataState struct {
 	Results      []UserData
 	Search       string
 	Streamer     UserData
+	ShowStreamer bool
 }
 
 func main() {
@@ -49,7 +50,7 @@ func main() {
 	}
 
 	DreamSmp := []string{"dreamwastaken", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity"}
-	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kherrr_z", "amouranth"}
+	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth"}
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)
@@ -69,15 +70,17 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-		}
-
-		if r.Method == "GET" {
+			dataState.ShowStreamer = true
+		} else if r.Method == "GET" {
 			dataState.Search = ""
-		} else if r.Method == "POST" {
+			dataState.ShowStreamer = false
+		}
+		if r.Method == "POST" {
 			err := r.ParseForm()
 			if err != nil {
 				log.Fatal(err)
 			}
+			dataState.ShowStreamer = false
 			dataState.Search = r.Form.Get("search")
 			if dataState.Search == "" {
 				http.Redirect(w, r, "/", http.StatusSeeOther)
