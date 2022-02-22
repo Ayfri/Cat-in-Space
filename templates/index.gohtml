@@ -15,14 +15,14 @@
                 <div class="logo">
                     <img src="/resources/logo.png" alt="logo">
                 </div>
-                <div class="ChannelGroup">
+                <div class="channel-list">
                     <h3>DREAM SMP</h3>
                     {{range .DreamSmp}}
                         <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                     {{end}}
-                    <span class="AddMore">more...</span>
+                    <span class="add-more">more...</span>
                 </div>
-                <div class="ChannelGroup">
+                <div class="channel-list">
                     <h3>BEST CHANNEL</h3>
                     {{range .BestChannels}}
                         <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
@@ -43,25 +43,25 @@
                 {{if .ShowStreamer}}
                     {{template "streamer" .Streamer}}
                 {{else}}
-                    <div class="AllStreamers">
+                    <div class="streamer-list">
                         {{if .Search}}
                             {{range .Results}}
-                                <a class="Streamer" href="/?name={{.Login}}">
+                                <a class="streamer" href="/?name={{.Login}}">
                                     <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                                     <div class="streamer-information">
-                                        <h3 class="StreamerName">{{.DisplayName}}</h3>
-                                        <p class="StreamerBio">{{.Description}}</p>
+                                        <h3 class="streamer-name">{{.DisplayName}}</h3>
+                                        <p class="streamer-bio">{{.Description}}</p>
                                     </div>
                                 </a>
                             {{end}}
                         {{else}}
                             {{range .DreamSmp}}
-                                <a class="Streamer" href="/?name={{.Login}}">
+                                <a class="streamer" href="/?name={{.Login}}">
                                     <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
                                     <div class="streamer-information">
-                                        <h3 class="StreamerName">{{.DisplayName}}</h3>
-                                        <p class="StreamerBio">{{.Description}}</p>
+                                        <h3 class="streamer-name">{{.DisplayName}}</h3>
+                                        <p class="streamer-bio">{{.Description}}</p>
                                     </div>
                                 </a>
                             {{end}}
