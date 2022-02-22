@@ -61,6 +61,16 @@ func main() {
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" || r.URL.String() == "/?" {
+			url := "/"
+			query := r.URL.RawQuery
+			if query != "" {
+				url += "?" + query
+			}
+			http.Redirect(w, r, url, http.StatusFound)
+			return
+		}
+
 		queries := r.URL.Query()
 		if queries.Has("name") {
 			streamer, err := twitchClient.GetUserByLogin(queries.Get("name"))
