@@ -1,0 +1,47 @@
+.user-informations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    margin-top: 50px;
+    border-radius: 1em;
+    background-color: #350C63;
+    color: white;
+    width: 90%;
+}
+
+.card {
+    background-color: #29084e;
+    border-radius: 0.5em;
+    padding: 2em;
+}
+
+.sub-card, .card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+}
+
+.user-layout {
+    justify-content: space-between;
+}
+
+.user-important-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-date-views {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-more-information {
+    justify-content: space-between;
+}

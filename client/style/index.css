@@ -1,3 +1,5 @@
+@import url("./streamer.css");
+
 :root {
     --menu-width: 14vw;
     --search-menu-width: 13vw;
@@ -31,7 +33,7 @@ body {
     align-items: center;
 }
 
-.logo > img{
+.logo > img {
     width: auto;
     height: 90%;
 }
@@ -43,23 +45,23 @@ body {
     align-items: center;
 }
 
-.ChannelGroup {
+.channel-list {
     padding: 0 5%;
     display: flex;
     flex-direction: column;
 }
 
-.ChannelGroup h3 {
+.channel-list h3 {
     color: #565559;
     font-weight: bold;
     margin: 5% 0 1% 0;
 }
 
-.ChannelGroup span {
+.channel-list span {
     cursor: pointer;
 }
 
-.AddMore {
+.add-more {
     color: #8C50BC;
     font-size: 100%;
 }
@@ -132,14 +134,14 @@ form + button {
     margin-left: 0.5vw;
 }
 
-.AllStreamers {
+.streamer-list {
     display: flex;
     flex-wrap: wrap;
     margin: 5vh 1vw;
     justify-content: space-evenly;
 }
 
-.AllStreamers > a {
+.streamer-list > a {
     width: 19vw;
     height: 10vw;
     background-color: #350C63;
@@ -164,19 +166,19 @@ form + button {
     color: #EAE8E6;
 }
 
-.StreamerName {
+.streamer-name {
     font-weight: bold;
     width: 90%;
     overflow-wrap: break-word;
 }
 
-.StreamerBio {
+.streamer-bio {
     font-size: 90%;
     width: 90%;
     overflow-wrap: break-word;
 }
 
-.ProfilePic {
+.profile-picture {
     width: 6vw;
     height: 6vw;
     border-radius: 100%;
