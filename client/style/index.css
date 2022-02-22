@@ -72,6 +72,10 @@ body {
     margin: 3% 6%;
 }
 
+.dream-hidden {
+    display: none;
+}
+
 /* CONTENT */
 
 .content {
