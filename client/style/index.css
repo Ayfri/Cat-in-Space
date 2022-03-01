@@ -146,6 +146,17 @@ body {
     justify-content: space-evenly;
 }
 
+@keyframes spawn-streamer {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .streamer-list > a {
     width: 19vw;
     height: 10vw;
@@ -158,6 +169,8 @@ body {
     margin: 1.8vw;
     cursor: pointer;
     text-decoration: none;
+    opacity: 0;
+    animation: spawn-streamer 1s forwards .5s;
 }
 
 .streamer-information {

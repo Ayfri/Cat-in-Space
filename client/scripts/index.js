@@ -1,46 +1,38 @@
-cutString = () => {
+import {listAppearing} from './animations.js';
+import {changeTitle} from './changeTitle.js';
+
+function cutString() {
     const divs = document.querySelectorAll('.streamer-bio');
     for (let i = 0; i < divs.length; i++) {
         if (divs[i].textContent.length > 60) {
-            divs[i].textContent = divs[i].textContent.substring(0, 60);
-            divs[i].textContent += ' ...'
+            divs[i].textContent = divs[i].textContent.substring(0, 60) + ' ...';
         }
     }
 }
 
-
-hideStreamers = () => {
-    let dreamsmp = document.querySelectorAll('.dream-smp');
-    let dreamSmp = Array.prototype.slice.call(dreamsmp);
-    let hidden = dreamSmp.slice(-3);
-    for (let i = 0; i < hidden.length; i++) {
-        hidden[i].classList.add('dream-hidden');
-    }
+function hideStreamers() {
+    const dreamSmp = [...document.querySelectorAll('.dream-smp')];
+    const hidden = dreamSmp.slice(-3);
+    hidden.forEach(item => item.classList.add('dream-hidden'));
 }
 
+function clickStreamers() {
+    const dreamSmp = [...document.querySelectorAll('.dream-smp')];
+    const hidden = dreamSmp.slice(-3);
 
-clickStreamers = () => {
-    let dreamsmp = document.querySelectorAll('.dream-smp');
-    let dreamSmp = Array.prototype.slice.call(dreamsmp);
-    let hidden = dreamSmp.slice(-3);
+    const more = document.querySelectorAll('.add-more')[0];
 
-    let more = document.querySelectorAll('.add-more')[0];
-
-    more.onclick = function() {
+    more.onclick = function () {
         if (more.classList.contains('hidden')) {
-            for (let i = 0; i < hidden.length; i++) {
-                hidden[i].style.display = "flex";
-            }
-            more.textContent = "hide...";
+            hidden.forEach(item => item.style.display = 'flex');
+            more.textContent = 'hide...';
             more.classList.remove('hidden');
         } else {
-            for (let i = 0; i < hidden.length; i++) {
-                hidden[i].style.display = "none";
-            }
-            more.textContent = "more..."
+            hidden.forEach(item => item.style.display = 'none');
+            more.textContent = 'more...';
             more.classList.add('hidden');
         }
-    }
+    };
 }
 
 
@@ -49,4 +41,5 @@ window.onload = () => {
     hideStreamers()
     clickStreamers()
     changeTitle()
+    listAppearing()
 }
