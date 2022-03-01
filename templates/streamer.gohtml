@@ -6,7 +6,7 @@
             <div class="user-layout card">
                 <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                 <div class="user-important-infos">
-                    <h1>
+                    <h1 class="test-name">
                         {{.DisplayName}}
                     </h1>
                     <p class="followers"></p>
@@ -31,4 +31,6 @@
             </div>
         </div>
     {{end}}
+    <script defer src="/js/changeTitle.js"
+            type="text/javascript"></script>
 {{end}}

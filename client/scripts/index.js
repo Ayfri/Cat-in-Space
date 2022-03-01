@@ -48,4 +48,5 @@ window.onload = () => {
     cutString()
     hideStreamers()
     clickStreamers()
+    changeTitle()
 }
