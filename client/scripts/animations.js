@@ -1,19 +1,20 @@
+function isVisibleInViewport(element) {
+    if (element.offsetWidth || element.offsetHeight || element.getClientRects().length) {
+        const rect = element.getBoundingClientRect();
+        return rect.bottom > 0 && rect.right > 0 && rect.left < (window.innerWidth || document.documentElement.clientWidth) && rect.top < (window.innerHeight || document.documentElement.clientHeight);
+    }
+    return false;
+}
+
 export function listAppearing() {
-    const elements = document.querySelectorAll('.streamer');
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    const observer = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target);
-            }
+    function animateVisibleElements() {
+        const list = document.querySelectorAll('.streamer');
+
+        list.forEach(item => {
+            if (isVisibleInViewport(item)) item.classList.add('animate');
         });
-    }, options);
-    elements.forEach(element => {
-        observer.observe(element);
-    });
+    }
+
+    document.addEventListener('scroll', animateVisibleElements);
+    animateVisibleElements();
 }

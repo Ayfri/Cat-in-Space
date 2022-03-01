@@ -157,7 +157,7 @@ body {
     }
 }
 
-.streamer-list > a {
+.streamer {
     width: 19vw;
     height: 10vw;
     background-color: #350C63;
@@ -170,7 +170,10 @@ body {
     cursor: pointer;
     text-decoration: none;
     opacity: 0;
-    animation: spawn-streamer 1s forwards .5s;
+}
+
+.streamer.animate {
+    animation: spawn-streamer 1s forwards;
 }
 
 .streamer-information {
