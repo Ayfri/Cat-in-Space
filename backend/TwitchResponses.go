@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"strings"
 	"time"
 )
@@ -66,6 +67,15 @@ type UserData struct {
 	ViewCount       int       `json:"view_count"`
 	Email           string    `json:"email"`
 	CreatedAt       time.Time `json:"created_at"`
+	Emotes        EmoteResponse
+}
+
+func (user *UserData) GetEmotes(twitchClient TwitchClient) {
+	emotes, err := twitchClient.GetEmotes(user.Id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	user.Emotes = *emotes
 }
 
 type UserDataResponse struct {

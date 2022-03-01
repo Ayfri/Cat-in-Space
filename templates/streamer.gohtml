@@ -23,7 +23,11 @@
                         Vues : {{.ViewCount}}
                     </p>
                 </div>
-                <div class="emotes"></div>
+                <div class="emotes">
+                    {{range .Emotes.Data}}
+                        <img class="emotes-picture" src="{{.Images.Url2X}}" alt="{{.Name}}" title="{{.Name}}">
+                    {{end}}
+                </div>
             </div>
         </div>
     {{end}}

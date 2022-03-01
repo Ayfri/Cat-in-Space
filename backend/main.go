@@ -78,6 +78,7 @@ func main() {
 				log.Fatal(err)
 			}
 			if streamer != nil {
+				streamer.GetEmotes(twitchClient)
 				dataState.Streamer = *streamer
 			}
 			dataState.ShowStreamer = true

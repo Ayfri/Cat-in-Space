@@ -44,11 +44,22 @@
 
 .user-more-information {
     justify-content: space-between;
+    display: flex;
+    flex-direction: column;
 }
+
 .not-found {
     color: #bbb;
     font-size: 3em;
     text-align: center;
     margin-top: 15vh;
     letter-spacing: 1px;
+}
+
+.emotes {
+    margin-top: 2vw;
+}
+
+.emotes-picture {
+    margin: 0 0.5vw;
 }
