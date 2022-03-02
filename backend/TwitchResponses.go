@@ -67,7 +67,7 @@ type UserData struct {
 	ViewCount       int       `json:"view_count"`
 	Email           string    `json:"email"`
 	CreatedAt       time.Time `json:"created_at"`
-	Emotes        EmoteResponse
+	Emotes          EmoteResponse
 }
 
 func (user *UserData) GetEmotes(twitchClient TwitchClient) {
