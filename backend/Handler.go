@@ -45,7 +45,10 @@ func (h *Handler) HandleTemplate(filename string) *template.Template {
 }
 
 func (h *Handler) HandleTemplates(directory string) {
-	templates, err := template.ParseGlob(directory + "/*.gohtml")
+	templateMap := template.FuncMap{
+		"Title": strings.Title,
+	}
+	templates, err := template.New("").Funcs(templateMap).ParseGlob(directory + "/*.gohtml")
 	if err != nil {
 		log.Fatal(err)
 	}
