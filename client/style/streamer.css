@@ -28,6 +28,10 @@
     justify-content: space-between;
 }
 
+.user-layout > * {
+    margin: 0 10%;
+}
+
 .user-important-infos {
     display: flex;
     flex-direction: column;
@@ -62,4 +66,10 @@
 
 .emotes-picture {
     margin: 0 0.5vw;
+}
+
+.profile-picture-streamer {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 100%;
 }
