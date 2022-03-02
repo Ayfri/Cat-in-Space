@@ -13,6 +13,7 @@ type TwitchClient struct {
 	RedirectURI  string
 	Scopes       []string
 	Token        *TokenResponse
+	Cursor string
 }
 
 func (client *TwitchClient) FetchToken() error {
@@ -133,7 +134,7 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	return client.GetUsersById(names)
 }
 
-func (client *TwitchClient) SearchChannels(query string) (*[]UserData, error) {
+func (client *TwitchClient) SearchChannels(query string, after string) (*[]UserData, error) {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -145,6 +146,7 @@ func (client *TwitchClient) SearchChannels(query string) (*[]UserData, error) {
 		URLParams: map[string]string{
 			"query": query,
 			"first": "99",
+			"after": after,
 		},
 	}
 	result := &UserDataResponse{}
@@ -152,11 +154,12 @@ func (client *TwitchClient) SearchChannels(query string) (*[]UserData, error) {
 	if err != nil {
 		return nil, err
 	}
+	client.Cursor = result.Pagination.Cursor
 	return &result.Data, nil
 }
 
-func (client *TwitchClient) SearchChannelsAndFetch(query string) (*[]UserData, error) {
-	channels, err := client.SearchChannels(query)
+func (client *TwitchClient) SearchChannelsAndFetch(query string, after string) (*[]UserData, error) {
+	channels, err := client.SearchChannels(query, after)
 	if err != nil {
 		return nil, err
 	}

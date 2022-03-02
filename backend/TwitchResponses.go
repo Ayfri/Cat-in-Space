@@ -80,4 +80,7 @@ func (user *UserData) GetEmotes(twitchClient TwitchClient) {
 
 type UserDataResponse struct {
 	Data []UserData `json:"data"`
+	Pagination struct {
+		Cursor string `json:"cursor"`
+	} `json:"pagination"`
 }

@@ -62,9 +62,9 @@
                                     {{end}}
                                 </div>
                                 {{ $length := len .Results }} {{ if gt $length 98 }}
-                                    <div class="load-more">
-                                        <button type="submit">Load more</button>
-                                    </div>
+                                    <form method="post" class="load-more">
+                                        <button type="submit" name="load-more">Load more</button>
+                                    </form>
                                 {{end}}
                             {{ end }}
                         {{else}}
