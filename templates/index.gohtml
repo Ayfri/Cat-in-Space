@@ -61,9 +61,11 @@
                                         </a>
                                     {{end}}
                                 </div>
-                                <div class="load-more">
-                                    <button type="submit">Load more</button>
-                                </div>
+                                {{ $length := len .Results }} {{ if gt $length 98 }}
+                                    <div class="load-more">
+                                        <button type="submit">Load more</button>
+                                    </div>
+                                {{end}}
                             {{ end }}
                         {{else}}
                             <div class="streamer-real-list">
