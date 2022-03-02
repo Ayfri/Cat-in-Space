@@ -160,5 +160,8 @@ func (client *TwitchClient) SearchChannelsAndFetch(query string) (*[]UserData, e
 	if err != nil {
 		return nil, err
 	}
+	if len(*channels) == 0 {
+		return channels, nil
+	}
 	return client.GetUsers(channels)
 }
