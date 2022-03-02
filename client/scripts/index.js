@@ -12,13 +12,13 @@ function cutString() {
 
 function hideStreamers() {
     const dreamSmp = [...document.querySelectorAll('.dream-smp')];
-    const hidden = dreamSmp.slice(-3);
+    const hidden = dreamSmp.slice(-4);
     hidden.forEach(item => item.classList.add('dream-hidden'));
 }
 
 function clickStreamers() {
     const dreamSmp = [...document.querySelectorAll('.dream-smp')];
-    const hidden = dreamSmp.slice(-3);
+    const hidden = dreamSmp.slice(-4);
 
     const more = document.querySelectorAll('.add-more')[0];
 

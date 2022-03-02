@@ -48,7 +48,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	DreamSmp := []string{"dreamwastaken", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity"}
+	DreamSmp := []string{"Dream", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity", "antfrost"}
 	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth"}
 
 	for _, s := range DreamSmp {
