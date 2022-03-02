@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -47,6 +48,17 @@ func (h *Handler) HandleTemplate(filename string) *template.Template {
 func (h *Handler) HandleTemplates(directory string) {
 	templateMap := template.FuncMap{
 		"Title": strings.Title,
+		"FormatNumber": func(n int) string {
+			nbr := strconv.Itoa(n)
+			var result string
+			for i := len(nbr) - 1; i >= 0; i-- {
+				result = nbr[i:i+1] + result
+				if (i > 0) && ((len(nbr)-i)%3 == 0) {
+					result = " " + result
+				}
+			}
+			return result
+		},
 	}
 	templates, err := template.New("").Funcs(templateMap).ParseGlob(directory + "/*.gohtml")
 	if err != nil {

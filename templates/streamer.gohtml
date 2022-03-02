@@ -10,7 +10,7 @@
                         {{.DisplayName}}
                     </h1>
                     <p class="followers"></p>
-                    <p class="type">{{ Title .BroadcasterType}}</p>
+                    <p class="type">{{Title .BroadcasterType}}</p>
                 </div>
             </div>
             <p class="description card">
@@ -20,7 +20,7 @@
                 <div class="user-date-views sub-card">
                     <p class="create-date">Created at : {{.CreatedAt.Format "January 02 2006 15:04:05"}}</p>
                     <p class="view-count">
-                        Views : {{.ViewCount}}
+                        Views : {{FormatNumber .ViewCount}}
                     </p>
                 </div>
                 <div class="emotes">
