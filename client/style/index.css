@@ -146,7 +146,18 @@ body {
     justify-content: space-evenly;
 }
 
-.streamer-list > a {
+@keyframes spawn-streamer {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.streamer {
     width: 19vw;
     height: 10vw;
     background-color: #350C63;
@@ -158,6 +169,11 @@ body {
     margin: 1.8vw;
     cursor: pointer;
     text-decoration: none;
+    opacity: 0;
+}
+
+.streamer.animate {
+    animation: spawn-streamer 1s forwards;
 }
 
 .load-more {

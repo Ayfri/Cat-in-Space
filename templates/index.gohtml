@@ -5,7 +5,7 @@
             <meta charset="UTF-8">
             <title>Cat in space</title>
             <link href="/static/index.css" rel="stylesheet">
-            <script defer src="/js/index.js"></script>
+            <script defer src="/js/index.js" type="module"></script>
             <link href="/resources/logo.png" rel="icon" type="text/css">
             <link rel="stylesheet"
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,6 +36,7 @@
                     <form class="search-form" method="post">
                         <label for="search">
                             <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..."
+                                   value="{{.Search}}"
                                    class="search-input">
                         </label>
                         <button type="submit" name="submit" class="search-btn"><i class="fa fa-search"></i></button>
