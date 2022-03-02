@@ -1,8 +1,9 @@
 export function changeTitle() {
-    const name = document.querySelectorAll('.test-name');
+    const name = document.querySelector('.test-name');
     if (document.querySelector('.streamer-list')) {
-        document.title = `${document.querySelector('.search-input').getAttribute('value') || 'Cat in space'} - Results`;
+        const search = document.querySelector('.search-input').getAttribute('value');
+        document.title = search ? `${search} - Results` : 'Cat in space';
     } else {
-        document.title = name[0].innerText;
+        document.title = name.innerText || 'Cat in space';
     }
 }
