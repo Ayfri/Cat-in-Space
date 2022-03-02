@@ -70,8 +70,22 @@ func main() {
 			http.Redirect(w, r, url, http.StatusFound)
 			return
 		}
-
 		queries := r.URL.Query()
+
+		if len(queries) == 0 {
+			dataState.Search = ""
+			dataState.ShowStreamer = false
+		}
+
+		if queries.Has("query") {
+			dataState.Search = queries.Get("query")
+			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search)
+			if err != nil {
+				log.Fatal(err)
+			}
+			dataState.Results = *results
+		}
+
 		if queries.Has("name") {
 			streamer, err := twitchClient.GetUserByLogin(queries.Get("name"))
 			if err != nil {
@@ -82,10 +96,8 @@ func main() {
 				dataState.Streamer = *streamer
 			}
 			dataState.ShowStreamer = true
-		} else if r.Method == "GET" {
-			dataState.Search = ""
-			dataState.ShowStreamer = false
 		}
+
 		if r.Method == "POST" {
 			err := r.ParseForm()
 			if err != nil {
@@ -95,15 +107,12 @@ func main() {
 			dataState.Search = r.Form.Get("search")
 			if dataState.Search == "" {
 				http.Redirect(w, r, "/", http.StatusSeeOther)
-				return
+			} else {
+				http.Redirect(w, r, "/?query="+dataState.Search, http.StatusSeeOther)
 			}
-
-			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search)
-			if err != nil {
-				log.Fatal(err)
-			}
-			dataState.Results = *results
+			return
 		}
+
 		handler.ExecuteTemplate(w, "index", dataState)
 	})
 
