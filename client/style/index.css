@@ -160,6 +160,16 @@ body {
     text-decoration: none;
 }
 
+.load-more {
+    background-color: #9D4EDD;
+    width: 120%;
+    height: 20%;
+    color: white;
+    border-radius: 1vw;
+    font-size: 1vw;
+    cursor: pointer;
+}
+
 .streamer-information {
     display: flex;
     flex-direction: column;
