@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -83,6 +84,11 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+
+			sort.Slice(*results, func(i, j int) bool {
+				return (*results)[i].ViewCount > (*results)[j].ViewCount
+			})
+
 			dataState.Results = *results
 		}
 
