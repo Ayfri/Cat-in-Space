@@ -144,7 +144,7 @@ func (client *TwitchClient) SearchChannels(query string) (*[]UserData, error) {
 		URL:    "https://api.twitch.tv/helix/search/channels",
 		URLParams: map[string]string{
 			"query": query,
-			"first": "100",
+			"first": "99",
 		},
 	}
 	result := &UserDataResponse{}

@@ -47,29 +47,37 @@
                 {{else}}
                     <div class="streamer-list">
                         {{if .Search}}
-                            {{range .Results}}
-                                <a class="streamer" href="/?name={{.Login}}">
-                                    <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                                    <div class="streamer-information">
-                                        <h3 class="streamer-name">{{.DisplayName}}</h3>
-                                        <p class="streamer-bio">{{.Description}}</p>
-                                    </div>
-                                </a>
-                            {{end}}
-                            <div>
-                                <button type="button" class="load-more">Load more</button>
-                            </div>
+                            {{ $length := len .Results }} {{ if eq $length 0 }}
+                                <h1 class="not-found">Streamer not found :(</h1>
+                            {{else}}
+                                <div class="streamer-real-list">
+                                    {{range .Results}}
+                                        <a class="streamer" href="/?name={{.Login}}">
+                                            <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                                            <div class="streamer-information">
+                                                <h3 class="streamer-name">{{.DisplayName}}</h3>
+                                                <p class="streamer-bio">{{.Description}}</p>
+                                            </div>
+                                        </a>
+                                    {{end}}
+                                </div>
+                                <div class="load-more">
+                                    <button type="submit">Load more</button>
+                                </div>
+                            {{ end }}
                         {{else}}
-                            {{range .DreamSmp}}
-                                <a class="streamer" href="/?name={{.Login}}">
-                                    <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                            <div class="streamer-real-list">
+                                {{range .DreamSmp}}
+                                    <a class="streamer" href="/?name={{.Login}}">
+                                        <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
-                                    <div class="streamer-information">
-                                        <h3 class="streamer-name">{{.DisplayName}}</h3>
-                                        <p class="streamer-bio">{{.Description}}</p>
-                                    </div>
-                                </a>
-                            {{end}}
+                                        <div class="streamer-information">
+                                            <h3 class="streamer-name">{{.DisplayName}}</h3>
+                                            <p class="streamer-bio">{{.Description}}</p>
+                                        </div>
+                                    </a>
+                                {{end}}
+                            </div>
                         {{end}}
                     </div>
                 {{end}}
