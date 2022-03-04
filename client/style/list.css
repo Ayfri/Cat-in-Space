@@ -1,0 +1,92 @@
+.streamer-real-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5vh 1vw;
+    justify-content: space-evenly;
+}
+
+@keyframes spawn-streamer {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.streamer {
+    width: 19vw;
+    height: 10vw;
+    background-color: #350C63;
+    border-radius: 1.5vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1%;
+    margin: 1.8vw;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0;
+}
+
+.streamer.animate {
+    animation: spawn-streamer 1s forwards;
+}
+
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4vw;
+}
+
+.load-more > button {
+    background-color: #9D4EDD;
+    border: none;
+    width: 10%;
+    height: 2vw;
+    color: white;
+    border-radius: 1vw;
+    font-size: 1vw;
+    /*cursor: pointer;*/
+}
+
+.load-more > button:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+.load-more > button:active {
+    filter: brightness(85%);
+    color: #eee;
+}
+
+.streamer-information {
+    display: flex;
+    flex-direction: column;
+    width: 10vw;
+    align-items: center;
+    height: 80%;
+    justify-content: space-around;
+    font-size: 1vw;
+    color: #EAE8E6;
+}
+
+.streamer-name {
+    font-weight: bold;
+    width: 90%;
+    overflow-wrap: break-word;
+}
+
+.profile-picture {
+    width: 6vw;
+    height: 6vw;
+    border-radius: 100%;
+}
+
+.streamer-bio {
+    font-size: 90%;
+    width: 90%;
+    overflow-wrap: break-word;
+}
