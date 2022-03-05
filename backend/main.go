@@ -79,17 +79,26 @@ func main() {
 		}
 
 		if queries.Has("query") {
-			dataState.Search = queries.Get("query")
+			search := queries.Get("query")
+			if dataState.Search != search {
+				twitchClient.Cursor = ""
+				dataState.Search = search
+			}
+
 			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			sort.Slice(*results, func(i, j int) bool {
-				return (*results)[i].ViewCount > (*results)[j].ViewCount
+			if dataState.Search != search {
+				dataState.Results = *results
+			} else {
+				dataState.Results = append(dataState.Results, *results...)
+			}
+			
+			sort.Slice(dataState.Results, func(i, j int) bool {
+				return dataState.Results[i].ViewCount > dataState.Results[j].ViewCount
 			})
-
-			dataState.Results = *results
 		}
 
 		if queries.Has("name") {
