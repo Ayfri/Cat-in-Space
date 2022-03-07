@@ -93,7 +93,17 @@ func main() {
 			if dataState.Search != search {
 				dataState.Results = *results
 			} else {
-				dataState.Results = append(dataState.Results, *results...)
+				for _, data := range *results {
+					resultsTest := false
+					for _, dataa := range dataState.Results {
+						if data.Id == dataa.Id {
+							resultsTest	= true
+						}
+					}
+					if !resultsTest {
+						dataState.Results = append(dataState.Results, data)
+					}
+				}
 			}
 			
 			sort.Slice(dataState.Results, func(i, j int) bool {
@@ -135,6 +145,7 @@ func main() {
 			} else {
 				twitchClient.Cursor = ""
 				dataState.ShowStreamer = false
+				dataState.Results = []UserData{}
 				dataState.Search = r.Form.Get("search")
 				if dataState.Search == "" {
 					http.Redirect(w, r, "/", http.StatusSeeOther)
