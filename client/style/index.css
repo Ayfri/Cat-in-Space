@@ -73,6 +73,18 @@ body {
     margin: 3% 6%;
 }
 
+.mini-profile-picture {
+    width: 2vw;
+    height: auto;
+    border-radius: 100%;
+}
+
+.small-profile {
+    display: flex;
+    align-items: center;
+    margin: 3%;
+}
+
 .dream-hidden {
     display: none;
 }
@@ -80,7 +92,7 @@ body {
 /* CONTENT */
 
 .content {
-    width: 82vw;
+    width: 100vw;
     margin-left: var(--menu-width);
 }
 

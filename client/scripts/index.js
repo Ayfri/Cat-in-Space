@@ -17,8 +17,7 @@ function hideStreamers() {
 }
 
 function clickStreamers() {
-    const dreamSmp = [...document.querySelectorAll('.dream-smp')];
-    const hidden = dreamSmp.slice(-4);
+    const hidden = document.querySelectorAll('.dream-hidden');
 
     const more = document.querySelectorAll('.add-more')[0];
 

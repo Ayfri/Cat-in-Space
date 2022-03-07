@@ -1,8 +1,14 @@
 .streamer-real-list {
     display: flex;
     flex-wrap: wrap;
-    margin: 5vh 1vw;
+    margin: 5vh 6vw 5vh 0;
     justify-content: space-evenly;
+}
+
+.streamer-list {
+    display: flex;
+    width: 80vw;
+    justify-content: flex-start;
 }
 
 @keyframes spawn-streamer {
