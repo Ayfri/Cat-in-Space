@@ -73,3 +73,10 @@
     height: 10vw;
     border-radius: 100%;
 }
+
+.test-name {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 2.5vw;
+}
