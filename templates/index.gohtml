@@ -29,10 +29,10 @@
                 <div class="channel-list">
                     <h3>BEST CHANNELS</h3>
                     {{range .BestChannels}}
-                    <div class="small-profile">
-                        <img class="mini-profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
-                        <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
-                    </div>
+                        <div class="small-profile">
+                            <img class="mini-profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                            <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
+                        </div>
                     {{end}}
                 </div>
             </div>

@@ -1,7 +1,7 @@
 .streamer-real-list {
     display: flex;
     flex-wrap: wrap;
-    margin: 5vh 6vw 5vh 0;
+    margin: 5vh 3vw 5vh 0;
     justify-content: space-evenly;
 }
 
@@ -9,6 +9,7 @@
     display: flex;
     width: 80vw;
     justify-content: flex-start;
+    flex-direction: column;
 }
 
 @keyframes spawn-streamer {
@@ -55,7 +56,6 @@
     color: white;
     border-radius: 1vw;
     font-size: 1vw;
-    /*cursor: pointer;*/
 }
 
 .load-more > button:hover {
