@@ -35,7 +35,7 @@ body {
 }
 
 .menu {
-    background-color: #240046;
+    background-color: #151515;
     width: var(--menu-width);
     height: 100vh;
     position: fixed;
@@ -44,7 +44,7 @@ body {
 }
 
 .logo {
-    background-color: #3F0C70;
+    background-color: #333333;
     width: 100%;
     height: 10vh;
     display: flex;
@@ -73,7 +73,7 @@ body {
 .channel-list h3 {
     color: #565559;
     font-weight: bold;
-    margin: 15% 0 1% 0;
+    margin: 15% 0 3% 0;
 }
 
 .channel-list span {
@@ -86,7 +86,6 @@ body {
 }
 
 .streamer-link {
-    text-decoration: none;
     color: #e9ebf0;
     margin: 3% 6%;
 }
@@ -100,7 +99,13 @@ body {
 .small-profile {
     display: flex;
     align-items: center;
-    margin: 3%;
+    padding: 3%;
+    text-decoration: none;
+    width: 100%;
+}
+
+.small-profile:hover {
+    background-color: #3b1264;
 }
 
 .dream-hidden {
@@ -171,5 +176,5 @@ body {
 }
 
 .is-live {
-    border: solid green;
+    border: medium solid #03cc03;
 }
