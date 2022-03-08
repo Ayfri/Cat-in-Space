@@ -47,7 +47,6 @@ func (h *Handler) HandleTemplate(filename string) *template.Template {
 
 func (h *Handler) HandleTemplates(directory string) {
 	templateMap := template.FuncMap{
-		"Title": strings.Title,
 		"FormatNumber": func(n int) string {
 			nbr := strconv.Itoa(n)
 			var result string

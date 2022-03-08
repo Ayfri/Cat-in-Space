@@ -93,19 +93,20 @@ func main() {
 			if dataState.Search != search {
 				dataState.Results = *results
 			} else {
-				for _, data := range *results {
+				for _, newUser := range *results {
 					resultsTest := false
-					for _, dataa := range dataState.Results {
-						if data.Id == dataa.Id {
-							resultsTest	= true
+					for _, oldUser := range dataState.Results {
+						if newUser.Id == oldUser.Id {
+							resultsTest = true
+							break
 						}
 					}
 					if !resultsTest {
-						dataState.Results = append(dataState.Results, data)
+						dataState.Results = append(dataState.Results, newUser)
 					}
 				}
 			}
-			
+
 			sort.Slice(dataState.Results, func(i, j int) bool {
 				return dataState.Results[i].ViewCount > dataState.Results[j].ViewCount
 			})

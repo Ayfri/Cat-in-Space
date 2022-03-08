@@ -39,6 +39,10 @@
     justify-content: space-between;
 }
 
+.user-important-infos .type {
+    text-transform: capitalize;
+}
+
 .user-date-views {
     display: flex;
     flex-direction: row;
