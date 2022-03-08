@@ -68,6 +68,7 @@ type UserData struct {
 	Email           string    `json:"email"`
 	CreatedAt       time.Time `json:"created_at"`
 	Emotes          EmoteResponse
+	IsLive	bool `json:"is_live"`
 }
 
 func (user *UserData) GetEmotes(twitchClient TwitchClient) {

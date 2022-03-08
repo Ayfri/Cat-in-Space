@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -126,6 +127,23 @@ func (client *TwitchClient) GetUsersById(ids []string) (*[]UserData, error) {
 	return &result.Data, nil
 }
 
+func (client *TwitchClient) GetChannels(channels []string) ([]UserData, error) {
+	var users []UserData
+	for _, user := range channels {
+		users = append(users, client.GetUserByLogin(user))
+		for _, userr := range users {
+			if userr.Id == streamer.Id {
+				userr.IsLive = streamer.IsLive
+			}
+		}
+	}
+	// manque err
+	if err != nil {
+		log.Fatal(err)
+	}
+	return users, err
+}
+
 func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	var names []string
 	for _, user := range *users {
@@ -166,5 +184,10 @@ func (client *TwitchClient) SearchChannelsAndFetch(query string, after string) (
 	if len(*channels) == 0 {
 		return channels, nil
 	}
-	return client.GetUsers(channels)
+	users, err := client.GetUsers(channels)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return users, err
 }

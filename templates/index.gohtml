@@ -23,6 +23,13 @@
                             <img class="mini-profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                             <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                         </div>
+                        {{if .IsLive}}
+                            <style>
+                                .mini-profile-picture {
+                                    border: solid green;
+                                }
+                            </style>
+                        {{end}}
                     {{end}}
                     <span class="add-more hidden">more...</span>
                 </div>
