@@ -127,21 +127,25 @@ func (client *TwitchClient) GetUsersById(ids []string) (*[]UserData, error) {
 	return &result.Data, nil
 }
 
-func (client *TwitchClient) GetChannels(channels []string) ([]UserData, error) {
-	var users []UserData
-	for _, user := range channels {
-		users = append(users, client.GetUserByLogin(user))
-		for _, userr := range users {
-			if userr.Id == streamer.Id {
-				userr.IsLive = streamer.IsLive
-			}
-		}
+func (client *TwitchClient) IsLive(id string) bool {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/streams",
+		URLParams: map[string]string{
+			"user_id": id,
+		},
 	}
-	// manque err
+	result := &Streams{}
+	err := requester.DoRequestTo(result)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return users, err
+	return len(result.Data) > 0
 }
 
 func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
@@ -188,6 +192,12 @@ func (client *TwitchClient) SearchChannelsAndFetch(query string, after string) (
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	for i, user := range *users {
+		for _, channel := range *channels {
+			if user.Id == channel.Id {
+				(*users)[i].IsLive = channel.IsLive
+			}
+		}
+	}
 	return users, err
 }

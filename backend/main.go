@@ -53,11 +53,13 @@ func main() {
 
 	for _, s := range DreamSmp {
 		userdata, _ := twitchClient.GetUserByLogin(s)
+		(*userdata).IsLive = twitchClient.IsLive(userdata.Id)
 		dataState.DreamSmp = append(dataState.DreamSmp, *userdata)
 	}
 
 	for _, s := range BestChannel {
 		userdata, _ := twitchClient.GetUserByLogin(s)
+		(*userdata).IsLive = twitchClient.IsLive(userdata.Id)
 		dataState.BestChannels = append(dataState.BestChannels, *userdata)
 	}
 

@@ -20,16 +20,9 @@
                     <h3>DREAM SMP</h3>
                     {{range .DreamSmp}}
                         <div class="small-profile dream-smp">
-                            <img class="mini-profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                            <img class="mini-profile-picture {{if .IsLive}}is-live{{end}}" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                             <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                         </div>
-                        {{if .IsLive}}
-                            <style>
-                                .mini-profile-picture {
-                                    border: solid green;
-                                }
-                            </style>
-                        {{end}}
                     {{end}}
                     <span class="add-more hidden">more...</span>
                 </div>
@@ -37,7 +30,7 @@
                     <h3>BEST CHANNELS</h3>
                     {{range .BestChannels}}
                         <div class="small-profile">
-                            <img class="mini-profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
+                            <img class="mini-profile-picture {{if .IsLive}}is-live{{end}}" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                             <a class="streamer-link" href="/?name={{.Login}}">{{.DisplayName}}</a>
                         </div>
                     {{end}}
@@ -65,7 +58,7 @@
                             {{else}}
                                 <div class="streamer-real-list">
                                     {{range .Results}}
-                                        <a class="streamer" href="/?name={{.Login}}">
+                                        <a class="streamer {{if .IsLive}}is-live{{end}}" href="/?name={{.Login}}">
                                             <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
                                             <div class="streamer-information">
                                                 <h3 class="streamer-name">{{.DisplayName}}</h3>
@@ -83,7 +76,7 @@
                         {{else}}
                             <div class="streamer-real-list">
                                 {{range .DreamSmp}}
-                                    <a class="streamer" href="/?name={{.Login}}">
+                                    <a class="streamer {{if .IsLive}}is-live{{end}}" href="/?name={{.Login}}">
                                         <img class="profile-picture" src="{{.ProfileImageUrl}}" alt="{{.DisplayName}}">
 
                                         <div class="streamer-information">

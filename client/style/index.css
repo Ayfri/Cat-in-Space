@@ -169,3 +169,7 @@ body {
 .search-input:not(:placeholder-shown) {
     background-color: #9D4EDD;
 }
+
+.is-live {
+    border: solid green;
+}
