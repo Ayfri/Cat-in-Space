@@ -7,8 +7,7 @@
             <link href="/static/index.css" rel="stylesheet">
             <script defer src="/js/index.js" type="module"></script>
             <link href="/resources/logo.png" rel="icon" type="text/css">
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
 
         <body>
@@ -38,7 +37,7 @@
             </nav>
 
             <main class="content">
-                <div class="search-menu">
+                <section class="search-menu">
                     <form class="search-form" method="post">
                         <label for="search">
                             <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..."
@@ -47,7 +46,7 @@
                         </label>
                         <button type="submit" name="submit" class="search-btn"><i class="fa fa-search"></i></button>
                     </form>
-                </div>
+                </section>
                 {{if .ShowStreamer}}
                     {{template "streamer" .Streamer}}
                 {{else}}

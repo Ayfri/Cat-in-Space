@@ -2,9 +2,21 @@
 @import url("./list.css");
 
 :root {
+    --almost-white: #e5e5e5;
+    --background-color: #10002B;
+    --card-color: #350C63;
+    --header-background-color: #20003e;
+    --is-living: #03cc03;
+    --is-living-hover: #003b00;
+    --logo-background-color: #333333;
+    --menu-background-color: #151515;
+    --menu-titles: #565559;
     --menu-width: 15vw;
+    --not-found: #bbb;
     --search-menu-width: 13vw;
     --scrollbar-width: 8px;
+    --streamer-background-color: #29084e;
+    --twitch-color: #7331a8;
 }
 
 ::-webkit-scrollbar {
@@ -30,12 +42,12 @@ body {
     margin: 0;
     display: flex;
     font-family: 'Roboto', sans-serif;
-    background-color: #10002B;
+    background-color: var(--background-color);
     overflow-x: hidden;
 }
 
 .menu {
-    background-color: #151515;
+    background-color: var(--menu-background-color);
     width: var(--menu-width);
     height: 100vh;
     position: fixed;
@@ -45,7 +57,7 @@ body {
 }
 
 .logo {
-    background-color: #333333;
+    background-color: var(--logo-background-color);
     width: 100%;
     height: 10vh;
     display: flex;
@@ -72,7 +84,7 @@ body {
 }
 
 .channel-list h3 {
-    color: #565559;
+    color: var(--menu-titles);
     font-weight: bold;
     margin: 15% 0 3% 0;
 }
@@ -87,7 +99,7 @@ body {
 }
 
 .streamer-link {
-    color: #e9ebf0;
+    color: var(--almost-white);
     margin: 3% 6%;
 }
 
@@ -121,11 +133,10 @@ body {
 }
 
 .search-menu {
-    background-color: #20003e;
+    background-color: var(--header-background-color);
     width: 100vw;
     height: 10vh;
     overflow: hidden;
-    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,7 +159,7 @@ body {
     border-radius: 0.5vw;
     width: 20vw;
     height: 3.8vh;
-    background-color: #7331a8;
+    background-color: var(--twitch-color);
     padding: 4px;
     box-sizing: border-box;
     border: black;
@@ -159,11 +170,11 @@ body {
 .search-btn {
     width: 2.5vw;
     height: 3.8vh;
-    background-color: #9D4EDD;
+    background-color: var(--twitch-color);
 }
 
 .search-input::placeholder {
-    color: #e5e5e5;
+    color: var(--almost-white);
     opacity: 1;
     transition: opacity .12s;
 }
@@ -173,9 +184,9 @@ body {
 }
 
 .search-input:not(:placeholder-shown) {
-    background-color: #9D4EDD;
+    background-color: var(--twitch-color);
 }
 
 .is-live {
-    border: medium solid #03cc03;
+    border: medium solid var(--is-living);
 }
