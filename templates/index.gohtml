@@ -12,7 +12,7 @@
         </head>
 
         <body>
-            <div class="menu">
+            <nav class="menu">
                 <a class="logo" href="/">
                     <img src="/resources/logo.png" alt="logo">
                 </a>
@@ -35,9 +35,9 @@
                         </a>
                     {{end}}
                 </div>
-            </div>
+            </nav>
 
-            <div class="content">
+            <main class="content">
                 <div class="search-menu">
                     <form class="search-form" method="post">
                         <label for="search">
@@ -53,7 +53,8 @@
                 {{else}}
                     <div class="streamer-list">
                         {{if .Search}}
-                            {{ $length := len .Results }} {{ if eq $length 0 }}
+                            {{ $length := len .Results }}
+                            {{ if eq (len .Results) 0 }}
                                 <h1 class="not-found">Streamer not found :(</h1>
                             {{else}}
                                 <div class="streamer-real-list">
@@ -69,7 +70,7 @@
                                         </div>
                                     {{end}}
                                 </div>
-                                {{ $length := len .Results }} {{ if gt $length 98 }}
+                                {{ if gt $length 98 }}
                                     <form method="post" class="load-more">
                                         <button type="submit" name="load-more">Load more</button>
                                     </form>
@@ -93,7 +94,7 @@
                         {{end}}
                     </div>
                 {{end}}
-            </div>
+            </main>
         </body>
     </html>
 {{end}}
