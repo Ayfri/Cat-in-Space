@@ -86,8 +86,12 @@ type UserDataResponse struct {
 	} `json:"pagination"`
 }
 
-type Streams struct {
-	Data []struct {
-		Id string `json:"id"`
-	} `json:"data"`
+type Stream struct {
+	Id        string `json:"id"`
+	IsLive    bool   `json:"is_live"`
+	ViewCount int    `json:"viewer_count"`
+}
+
+type StreamsResponse struct {
+	Data []Stream `json:"data"`
 }

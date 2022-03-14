@@ -50,17 +50,27 @@ func main() {
 
 	DreamSmp := []string{"Dream", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity", "antfrost"}
 	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth", "mistermv", "sardoche", "antoinedaniel"}
+	var ids []string
 
-	for _, s := range DreamSmp {
-		userdata, _ := twitchClient.GetUserByLogin(s)
-		(*userdata).IsLive = twitchClient.IsLive(userdata.Id)
-		dataState.DreamSmp = append(dataState.DreamSmp, *userdata)
+	users, _ := twitchClient.GetUsersByLogin(DreamSmp)
+	for _, user := range *users {
+		dataState.DreamSmp = append(dataState.DreamSmp, user)
+		ids = append(ids, user.Id)
+	}
+	streams := twitchClient.IsLive(ids)
+	for i, stream := range streams.Data {
+		dataState.DreamSmp[i].IsLive = stream.IsLive
 	}
 
-	for _, s := range BestChannel {
-		userdata, _ := twitchClient.GetUserByLogin(s)
-		(*userdata).IsLive = twitchClient.IsLive(userdata.Id)
-		dataState.BestChannels = append(dataState.BestChannels, *userdata)
+	ids = []string{}
+	users, _ = twitchClient.GetUsersByLogin(BestChannel)
+	for _, user := range *users {
+		dataState.BestChannels = append(dataState.BestChannels, user)
+		ids = append(ids, user.Id)
+	}
+	streams = twitchClient.IsLive(ids)
+	for i, stream := range streams.Data {
+		dataState.BestChannels[i].IsLive = stream.IsLive
 	}
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
@@ -87,7 +97,7 @@ func main() {
 				dataState.Search = search
 			}
 
-			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
+			results, err := twitchClient.SearchUsersAndFetch(dataState.Search, twitchClient.Cursor)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -133,7 +143,7 @@ func main() {
 			}
 
 			if r.Form.Has("load-more") {
-				results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
+				results, err := twitchClient.SearchUsersAndFetch(dataState.Search, twitchClient.Cursor)
 				if err != nil {
 					log.Fatal(err)
 				}

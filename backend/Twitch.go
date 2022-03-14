@@ -14,7 +14,7 @@ type TwitchClient struct {
 	RedirectURI  string
 	Scopes       []string
 	Token        *TokenResponse
-	Cursor string
+	Cursor       string
 }
 
 func (client *TwitchClient) FetchToken() error {
@@ -127,7 +127,7 @@ func (client *TwitchClient) GetUsersById(ids []string) (*[]UserData, error) {
 	return &result.Data, nil
 }
 
-func (client *TwitchClient) IsLive(id string) bool {
+func (client *TwitchClient) GetUsersByLogin(ids []string) (*[]UserData, error) {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -135,17 +135,18 @@ func (client *TwitchClient) IsLive(id string) bool {
 			"Client-ID":     client.ClientID,
 		},
 		Method: "GET",
-		URL:    "https://api.twitch.tv/helix/streams",
-		URLParams: map[string]string{
-			"user_id": id,
-		},
+		URL:    "https://api.twitch.tv/helix/users",
 	}
-	result := &Streams{}
+	for _, login := range ids {
+		requester.URLParamsArray = append(requester.URLParamsArray, Pair{"login", login})
+	}
+
+	result := &UserDataResponse{}
 	err := requester.DoRequestTo(result)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	return len(result.Data) > 0
+	return &result.Data, nil
 }
 
 func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
@@ -156,7 +157,51 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	return client.GetUsersById(names)
 }
 
-func (client *TwitchClient) SearchChannels(query string, after string) (*[]UserData, error) {
+func (client *TwitchClient) IsLive(id []string) *StreamsResponse {
+	requester := Requester{
+		Client: *client.Client,
+		Headers: map[string]string{
+			"Authorization": client.Token.GetFormattedToken(),
+			"Client-ID":     client.ClientID,
+		},
+		Method: "GET",
+		URL:    "https://api.twitch.tv/helix/streams",
+	}
+
+	for _, login := range id {
+		requester.URLParamsArray = append(requester.URLParamsArray, Pair{"user_id", login})
+	}
+
+	result := &StreamsResponse{}
+	err := requester.DoRequestTo(result)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var results []Stream
+	for _, stream := range result.Data {
+		if stream.Id != "" {
+			stream.IsLive = true
+			results = append(results, stream)
+		}
+	}
+
+	for _, id := range id {
+		index := -1
+		for i, ids := range results {
+			if ids.Id == id {
+				index = i
+				break
+			}
+		}
+
+		if index == -1 {
+			results = append(results, Stream{Id: id, IsLive: false})
+		}
+	}
+	return result
+}
+
+func (client *TwitchClient) SearchUsers(query string, after string) (*[]UserData, error) {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -181,7 +226,7 @@ func (client *TwitchClient) SearchChannels(query string, after string) (*[]UserD
 }
 
 func (client *TwitchClient) SearchChannelsAndFetch(query string, after string) (*[]UserData, error) {
-	channels, err := client.SearchChannels(query, after)
+	channels, err := client.SearchUsers(query, after)
 	if err != nil {
 		return nil, err
 	}
