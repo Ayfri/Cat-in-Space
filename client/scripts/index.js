@@ -41,7 +41,7 @@ window.addEventListener("load", function () {
     const waiting = 0.5;
     setTimeout(function () {
         loader.classList.toggle("hide");
-    }, waiting * 1500);
+    }, waiting * 1250);
 } )
 
 
