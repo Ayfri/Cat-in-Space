@@ -33,7 +33,7 @@
 .streamer {
     width: 100%;
     height: 100%;
-    background-color: #350C63;
+    background-color: var(--card-color);
     border-radius: 1.5vw;
     display: flex;
     justify-content: space-around;
@@ -49,11 +49,11 @@
 }
 
 .streamer:hover {
-    box-shadow:-5px 5px #7331a8;
+    box-shadow:-5px 5px var(--twitch-color);
 }
 
 .is-live:hover {
-    box-shadow:-5px 5px #003b00;
+    box-shadow:-5px 5px var(--is-living-hover);
 }
 
 .streamer.animate {
@@ -67,7 +67,7 @@
 }
 
 .load-more > button {
-    background-color: #9D4EDD;
+    background-color: var(--twitch-color);
     border: none;
     width: 10%;
     height: 2vw;
@@ -94,7 +94,7 @@
     height: 80%;
     justify-content: space-around;
     font-size: 1vw;
-    color: #EAE8E6;
+    color: var(--almost-white);
 }
 
 .streamer-name {

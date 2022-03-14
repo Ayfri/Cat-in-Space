@@ -8,12 +8,11 @@
             <link href="/static/loading.css" rel="stylesheet">
             <script defer src="/js/index.js" type="module"></script>
             <link href="/resources/logo.png" rel="icon" type="text/css">
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
 
         <body>
-            <div class="menu">
+            <nav class="menu">
                 <a class="logo" href="/">
                     <img src="/resources/logo.png" alt="logo">
                 </a>
@@ -36,12 +35,12 @@
                         </a>
                     {{end}}
                 </div>
-            </div>
+            </nav>
 
             <div class="loading" delay-hide="50000"></div>
 
-            <div class="content">
-                <div class="search-menu">
+            <main class="content">
+                <section class="search-menu">
                     <form class="search-form" method="post">
                         <label for="search">
                             <input type="search" name="search" spellcheck="false" placeholder=" Search a streamer..."
@@ -50,13 +49,14 @@
                         </label>
                         <button type="submit" name="submit" class="search-btn"><i class="fa fa-search"></i></button>
                     </form>
-                </div>
+                </section>
                 {{if .ShowStreamer}}
                     {{template "streamer" .Streamer}}
                 {{else}}
                     <div class="streamer-list">
                         {{if .Search}}
-                            {{ $length := len .Results }} {{ if eq $length 0 }}
+                            {{ $length := len .Results }}
+                            {{ if eq (len .Results) 0 }}
                                 <h1 class="not-found">Streamer not found :(</h1>
                             {{else}}
                                 <div class="streamer-real-list">
@@ -72,7 +72,7 @@
                                         </div>
                                     {{end}}
                                 </div>
-                                {{ $length := len .Results }} {{ if gt $length 98 }}
+                                {{ if gt $length 98 }}
                                     <form method="post" class="load-more">
                                         <button type="submit" name="load-more">Load more</button>
                                     </form>
@@ -96,7 +96,7 @@
                         {{end}}
                     </div>
                 {{end}}
-            </div>
+            </main>
         </body>
     </html>
 {{end}}

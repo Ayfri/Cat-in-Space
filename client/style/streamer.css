@@ -6,13 +6,13 @@
     padding: 1em;
     margin-top: 50px;
     border-radius: 1em;
-    background-color: #350C63;
+    background-color: var(--streamer-background-color);
     color: white;
     width: 90%;
 }
 
 .card {
-    background-color: #29084e;
+    background-color: var(--card-color);
     border-radius: 0.5em;
     padding: 2em;
 }
@@ -57,7 +57,7 @@
 }
 
 .not-found {
-    color: #bbb;
+    color: var(--not-found);
     font-size: 3em;
     text-align: center;
     margin-top: 15vh;
@@ -68,8 +68,18 @@
     margin-top: 2vw;
 }
 
-.emotes-picture {
+.emote {
     margin: 0 0.5vw;
+    position: relative;
+    transform: scale(1);
+    transition: all 0s ease-in-out;
+}
+
+.emote:hover {
+    filter: drop-shadow(1px 1px 0 var(--twitch-color)) drop-shadow(-1px -1px 0 var(--twitch-color)) drop-shadow(1px -1px 0 var(--twitch-color)) drop-shadow(-1px 1px 0 var(--twitch-color)) drop-shadow(0 0 5px black);
+    transform: scale(2);
+    transition: all 0.3s ease-in-out;
+    z-index: 200;
 }
 
 .profile-picture-streamer {
@@ -92,6 +102,6 @@
 }
 
 .test-name:hover {
-    transform:translate(5px,-5px);
-    text-shadow: -5px 5px #7331a8;
+    transform: translate(5px, -5px);
+    text-shadow: -5px 5px var(--twitch-color);
 }
