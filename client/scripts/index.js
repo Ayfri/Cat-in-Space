@@ -35,6 +35,17 @@ function clickStreamers() {
 }
 
 
+window.addEventListener("load", function () {
+    console.log("ready")
+    const loader = document.querySelector(".loading");
+    const waiting = 0.5;
+    setTimeout(function () {
+        loader.classList.toggle("hide");
+    }, waiting * 1500);
+} )
+
+
+
 window.onload = () => {
     cutString()
     hideStreamers()
