@@ -97,7 +97,7 @@ func main() {
 				dataState.Search = search
 			}
 
-			results, err := twitchClient.SearchUsersAndFetch(dataState.Search, twitchClient.Cursor)
+			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -143,7 +143,7 @@ func main() {
 			}
 
 			if r.Form.Has("load-more") {
-				results, err := twitchClient.SearchUsersAndFetch(dataState.Search, twitchClient.Cursor)
+				results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
 				if err != nil {
 					log.Fatal(err)
 				}
