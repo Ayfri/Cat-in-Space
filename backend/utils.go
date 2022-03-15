@@ -1,15 +1,35 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"html/template"
-)
+import "sort"
 
-func ToJSON(v interface{}) template.JS {
-	r, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		return template.JS("Cannot convert to JSON : " + fmt.Sprint(v))
+func IndexOf(array []string, value string) int {
+	for i, v := range array {
+		if v == value {
+			return i
+		}
 	}
-	return template.JS(r)
+	return -1
+}
+
+func SortStreamersByLivingThenList(streamers []UserData, nameList []string) []UserData {
+	var livingStreamers []UserData
+	var notLivingStreamers []UserData
+
+	for _, streamer := range streamers {
+		if streamer.IsLive {
+			livingStreamers = append(livingStreamers, streamer)
+		} else {
+			notLivingStreamers = append(notLivingStreamers, streamer)
+		}
+	}
+
+	sort.Slice(livingStreamers, func(i, j int) bool {
+		return IndexOf(nameList, livingStreamers[i].Login) < IndexOf(nameList, livingStreamers[j].Login)
+	})
+
+	sort.Slice(notLivingStreamers, func(i, j int) bool {
+		return IndexOf(nameList, notLivingStreamers[i].Login) < IndexOf(nameList, notLivingStreamers[j].Login)
+	})
+
+	return append(livingStreamers, notLivingStreamers...)
 }

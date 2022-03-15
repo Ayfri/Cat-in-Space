@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -157,7 +158,7 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	return client.GetUsersById(names)
 }
 
-func (client *TwitchClient) IsLive(id []string) *StreamsResponse {
+func (client *TwitchClient) IsLive(logins []string) *StreamsResponse {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -168,37 +169,37 @@ func (client *TwitchClient) IsLive(id []string) *StreamsResponse {
 		URL:    "https://api.twitch.tv/helix/streams",
 	}
 
-	for _, login := range id {
-		requester.URLParamsArray = append(requester.URLParamsArray, Pair{"user_id", login})
+	for _, login := range logins {
+		requester.URLParamsArray = append(requester.URLParamsArray, Pair{"user_login", login})
 	}
 
-	result := &StreamsResponse{}
-	err := requester.DoRequestTo(result)
+	streams := &StreamsResponse{}
+	err := requester.DoRequestTo(streams)
 	if err != nil {
 		log.Fatal(err)
 	}
-	var results []Stream
-	for _, stream := range result.Data {
-		if stream.Id != "" {
-			stream.IsLive = true
-			results = append(results, stream)
+	for _, stream := range streams.Data {
+		if stream.UserLogin != "" {
+			fmt.Println(stream)
+			streams.Data = append(streams.Data, stream)
 		}
 	}
 
-	for _, id := range id {
-		index := -1
-		for i, ids := range results {
-			if ids.Id == id {
-				index = i
+	for _, login := range logins {
+		isAlreadyKnown := false
+		for _, stream := range streams.Data {
+			if stream.UserLogin == login {
+				isAlreadyKnown = true
 				break
 			}
 		}
 
-		if index == -1 {
-			results = append(results, Stream{Id: id, IsLive: false})
+		if !isAlreadyKnown {
+			streams.Data = append(streams.Data, Stream{UserLogin: login})
 		}
 	}
-	return result
+
+	return streams
 }
 
 func (client *TwitchClient) SearchUsers(query string, after string) (*[]UserData, error) {

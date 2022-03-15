@@ -49,29 +49,47 @@ func main() {
 	}
 
 	DreamSmp := []string{"Dream", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity", "antfrost"}
-	BestChannel := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth", "mistermv", "sardoche", "antoinedaniel"}
-	var ids []string
+	BestChannels := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth", "mistermv", "sardoche", "antoinedaniel"}
 
 	users, _ := twitchClient.GetUsersByLogin(DreamSmp)
+	streams := twitchClient.IsLive(DreamSmp)
 	for _, user := range *users {
 		dataState.DreamSmp = append(dataState.DreamSmp, user)
-		ids = append(ids, user.Id)
 	}
-	streams := twitchClient.IsLive(ids)
-	for i, stream := range streams.Data {
-		dataState.DreamSmp[i].IsLive = stream.IsLive
+	for _, stream := range streams.Data {
+		index := -1
+		for i, user := range dataState.DreamSmp {
+			if user.Login == stream.UserLogin {
+				index = i
+			}
+		}
+
+		if index != -1 {
+			dataState.DreamSmp[index].IsLive = stream.ViewCount > 0
+		}
 	}
 
-	ids = []string{}
-	users, _ = twitchClient.GetUsersByLogin(BestChannel)
+	dataState.DreamSmp = SortStreamersByLivingThenList(dataState.DreamSmp, DreamSmp)
+
+	users, _ = twitchClient.GetUsersByLogin(BestChannels)
+	streams = twitchClient.IsLive(BestChannels)
 	for _, user := range *users {
 		dataState.BestChannels = append(dataState.BestChannels, user)
-		ids = append(ids, user.Id)
 	}
-	streams = twitchClient.IsLive(ids)
-	for i, stream := range streams.Data {
-		dataState.BestChannels[i].IsLive = stream.IsLive
+	for _, stream := range streams.Data {
+		index := -1
+		for i, user := range dataState.BestChannels {
+			if user.Login == stream.UserLogin {
+				index = i
+			}
+		}
+
+		if index != -1 {
+			dataState.BestChannels[index].IsLive = stream.ViewCount > 0
+		}
 	}
+
+	dataState.BestChannels = SortStreamersByLivingThenList(dataState.BestChannels, BestChannels)
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" || r.URL.String() == "/?" {

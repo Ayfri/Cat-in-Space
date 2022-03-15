@@ -87,8 +87,7 @@ type UserDataResponse struct {
 }
 
 type Stream struct {
-	Id        string `json:"id"`
-	IsLive    bool   `json:"is_live"`
+	UserLogin string `json:"user_login"`
 	ViewCount int    `json:"viewer_count"`
 }
 
