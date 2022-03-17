@@ -63,7 +63,7 @@
                                     <form class="dropdown-filter" method="POST">
                                         <label for="select">Sort by</label>
                                         <select name="sort" onchange="this.form.submit()">
-                                            <option value="">Default</option>
+                                            <option value="" disabled>Default</option>
                                             <option value="views" {{if eq .SortBy "views"}} selected {{end}}>Views</option>
                                             <option value="name" {{if eq .SortBy "name"}} selected {{end}}>Name</option>
                                         </select>
