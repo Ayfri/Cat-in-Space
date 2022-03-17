@@ -46,6 +46,8 @@ window.addEventListener("load", function () {
 
 
 
+
+
 window.onload = () => {
     cutString()
     hideStreamers()

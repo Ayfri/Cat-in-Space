@@ -59,6 +59,16 @@
                             {{ if eq (len .Results) 0 }}
                                 <h1 class="not-found">Streamer not found :(</h1>
                             {{else}}
+                                <div class="filter">
+                                    <form class="dropdown-filter" method="POST">
+                                        <label for="select">Sort by</label>
+                                        <select name="sort" onchange="this.form.submit()">
+                                            <option value="">Default</option>
+                                            <option value="views" {{if eq .SortBy "views"}} selected {{end}}>Views</option>
+                                            <option value="name" {{if eq .SortBy "name"}} selected {{end}}>Name</option>
+                                        </select>
+                                    </form>
+                                </div>
                                 <div class="streamer-real-list">
                                     {{range .Results}}
                                         <div class="twitch-like-hover">

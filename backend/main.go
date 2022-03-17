@@ -15,8 +15,9 @@ type DataState struct {
 	DreamSmp     []UserData
 	Results      []UserData
 	Search       string
-	Streamer     UserData
 	ShowStreamer bool
+	SortBy       string
+	Streamer     UserData
 }
 
 func main() {
@@ -110,8 +111,26 @@ func main() {
 
 		if queries.Has("query") {
 			search := queries.Get("query")
+
+			sortForm := r.FormValue("sort")
+			if sortForm != "" {
+				dataState.SortBy = sortForm
+				if sortForm == "name" {
+					sort.Slice(dataState.Results, func(i, j int) bool {
+						return dataState.Results[i].DisplayName > dataState.Results[j].DisplayName
+					})
+				} else {
+					sort.Slice(dataState.Results, func(i, j int) bool {
+						return dataState.Results[i].ViewCount > dataState.Results[j].ViewCount
+					})
+				}
+				http.Redirect(w, r, "/?"+r.URL.RawQuery, http.StatusFound)
+				return
+			}
+
 			if dataState.Search != search {
 				twitchClient.Cursor = ""
+				dataState.SortBy = ""
 				dataState.Search = search
 			}
 
@@ -136,10 +155,6 @@ func main() {
 					}
 				}
 			}
-
-			sort.Slice(dataState.Results, func(i, j int) bool {
-				return dataState.Results[i].ViewCount > dataState.Results[j].ViewCount
-			})
 		}
 
 		if queries.Has("name") {
@@ -170,13 +185,16 @@ func main() {
 					dataState.Results = append(dataState.Results, s)
 				}
 
-				sort.Slice(*results, func(i, j int) bool {
-					return (*results)[i].ViewCount > (*results)[j].ViewCount
-				})
+				sortStreamers := r.FormValue("sort")
+				if sortStreamers != "" {
+					http.Redirect(w, r, "/?"+r.URL.RawQuery+"&sort="+sortStreamers, http.StatusFound)
+					return
+				}
 			} else {
 				twitchClient.Cursor = ""
 				dataState.ShowStreamer = false
 				dataState.Results = []UserData{}
+				dataState.SortBy = ""
 				dataState.Search = r.Form.Get("search")
 				if dataState.Search == "" {
 					http.Redirect(w, r, "/", http.StatusSeeOther)
