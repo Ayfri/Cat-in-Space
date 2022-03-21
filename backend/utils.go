@@ -1,6 +1,19 @@
 package main
 
-import "sort"
+import (
+	"sort"
+	"strings"
+)
+
+func Is500Error(err error) bool {
+	if err == nil {
+		return false
+	}
+	if strings.Contains(err.Error(), "500") {
+		return true
+	}
+	return false
+}
 
 func IndexOf(array []string, value string) int {
 	for i, v := range array {

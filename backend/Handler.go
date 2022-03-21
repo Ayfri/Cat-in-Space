@@ -79,6 +79,7 @@ func (h *Handler) HandleRoute(route string, handler func(w http.ResponseWriter, 
 }
 
 func (h *Handler) Start(port string) error {
+	log.Println("Starting server on port " + port)
 	h.Port = port
 	if h.DefaultHandler == nil {
 		return http.ListenAndServe(port, nil)

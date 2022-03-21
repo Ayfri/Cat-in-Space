@@ -51,45 +51,8 @@ func main() {
 	DreamSmp := []string{"Dream", "georgenotfound", "sapnap", "badboyhalo", "tommyinnit", "tubbo", "ranboolive", "karljacobs", "nihachu", "quackity", "antfrost"}
 	BestChannels := []string{"ayfri1015", "xhmyjae", "antaww", "kerrr_z", "amouranth", "mistermv", "sardoche", "antoinedaniel"}
 
-	users, _ := twitchClient.GetUsersByLogin(DreamSmp)
-	streams := twitchClient.IsLive(DreamSmp)
-	for _, user := range *users {
-		dataState.DreamSmp = append(dataState.DreamSmp, user)
-	}
-	for _, stream := range streams.Data {
-		index := -1
-		for i, user := range dataState.DreamSmp {
-			if user.Login == stream.UserLogin {
-				index = i
-			}
-		}
-
-		if index != -1 {
-			dataState.DreamSmp[index].IsLive = stream.ViewCount > 0
-		}
-	}
-
-	dataState.DreamSmp = SortStreamersByLivingThenList(dataState.DreamSmp, DreamSmp)
-
-	users, _ = twitchClient.GetUsersByLogin(BestChannels)
-	streams = twitchClient.IsLive(BestChannels)
-	for _, user := range *users {
-		dataState.BestChannels = append(dataState.BestChannels, user)
-	}
-	for _, stream := range streams.Data {
-		index := -1
-		for i, user := range dataState.BestChannels {
-			if user.Login == stream.UserLogin {
-				index = i
-			}
-		}
-
-		if index != -1 {
-			dataState.BestChannels[index].IsLive = stream.ViewCount > 0
-		}
-	}
-
-	dataState.BestChannels = SortStreamersByLivingThenList(dataState.BestChannels, BestChannels)
+	twitchClient.PreFetchUsers(DreamSmp, &dataState.DreamSmp)
+	twitchClient.PreFetchUsers(BestChannels, &dataState.BestChannels)
 
 	handler.HandleRoute("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" || r.URL.String() == "/?" {
@@ -117,6 +80,10 @@ func main() {
 
 			results, err := twitchClient.SearchChannelsAndFetch(dataState.Search, twitchClient.Cursor)
 			if err != nil {
+				if Is500Error(err) {
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
 				log.Fatal(err)
 			}
 
@@ -145,6 +112,10 @@ func main() {
 		if queries.Has("name") {
 			streamer, err := twitchClient.GetUserByLogin(queries.Get("name"))
 			if err != nil {
+				if Is500Error(err) {
+					http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+					return
+				}
 				log.Fatal(err)
 			}
 			if streamer != nil {

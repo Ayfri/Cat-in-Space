@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 type Pair struct {
@@ -46,6 +48,10 @@ func (r *Requester) DoRequest() ([]byte, error) {
 	resp, err := r.Client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+
+	if strings.HasPrefix(resp.Status, "5") {
+		return nil, errors.New(resp.Status)
 	}
 
 	log.Printf("Requested: %s %s %s", req.Method, req.URL, resp.Status)

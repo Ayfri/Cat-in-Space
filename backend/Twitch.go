@@ -158,7 +158,7 @@ func (client *TwitchClient) GetUsers(users *[]UserData) (*[]UserData, error) {
 	return client.GetUsersById(names)
 }
 
-func (client *TwitchClient) IsLive(logins []string) *StreamsResponse {
+func (client *TwitchClient) IsLive(logins []string) (*StreamsResponse, error) {
 	requester := Requester{
 		Client: *client.Client,
 		Headers: map[string]string{
@@ -176,8 +176,9 @@ func (client *TwitchClient) IsLive(logins []string) *StreamsResponse {
 	streams := &StreamsResponse{}
 	err := requester.DoRequestTo(streams)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
+
 	for _, stream := range streams.Data {
 		if stream.UserLogin != "" {
 			fmt.Println(stream)
@@ -199,7 +200,36 @@ func (client *TwitchClient) IsLive(logins []string) *StreamsResponse {
 		}
 	}
 
-	return streams
+	return streams, nil
+}
+
+func (client *TwitchClient) PreFetchUsers(names []string, array *[]UserData) {
+	users, err := client.GetUsersByLogin(names)
+	if err != nil {
+		log.Fatal(err)
+	}
+	streams, err := client.IsLive(names)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, user := range *users {
+		*array = append(*array, user)
+	}
+	for _, stream := range streams.Data {
+		index := -1
+		for i, user := range *array {
+			if user.Login == stream.UserLogin {
+				index = i
+			}
+		}
+
+		if index != -1 {
+			(*array)[index].IsLive = stream.ViewCount > 0
+		}
+	}
+
+	*array = SortStreamersByLivingThenList(*array, names)
 }
 
 func (client *TwitchClient) SearchUsers(query string, after string) (*[]UserData, error) {
