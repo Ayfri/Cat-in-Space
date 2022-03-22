@@ -3,8 +3,8 @@
 
 :root {
     --almost-white: #e5e5e5;
-    --background-color: #10002B;
-    --card-color: #350C63;
+    --background-color: #10002b;
+    --card-color: #350c63;
     --header-background-color: #20003e;
     --is-living: #03cc03;
     --is-living-hover: #003b00;
@@ -12,7 +12,7 @@
     --menu-background-color: #151515;
     --menu-titles: #565559;
     --menu-width: 15vw;
-    --not-found: #bbb;
+    --not-found: #bbbbbb;
     --search-menu-width: 13vw;
     --scrollbar-width: 8px;
     --streamer-background-color: #29084e;
@@ -41,7 +41,7 @@
 body {
     margin: 0;
     display: flex;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     background-color: var(--background-color);
     overflow-x: hidden;
 }
@@ -94,7 +94,7 @@ body {
 }
 
 .add-more {
-    color: #8C50BC;
+    color: #8c50bc;
     font-size: 100%;
 }
 

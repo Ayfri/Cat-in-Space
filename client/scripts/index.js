@@ -1,11 +1,23 @@
 import {listAppearing} from './animations.js';
 import {changeTitle} from './changeTitle.js';
 
+function clickStreamers() {
+    const hidden = document.querySelectorAll('.dream-hidden');
+    const more = document.querySelector('.add-more');
+
+    more.onclick = () => {
+        const isHidden = more.classList.contains('hidden');
+        hidden.forEach(item => item.style.display = isHidden ? 'flex' : 'none');
+        more.textContent = isHidden ? 'hide...' : 'more...';
+        more.classList.toggle('hidden');
+    };
+}
+
 function cutString() {
     const divs = document.querySelectorAll('.streamer-bio');
     for (let i = 0; i < divs.length; i++) {
         if (divs[i].textContent.length > 60) {
-            divs[i].textContent = divs[i].textContent.substring(0, 60) + ' ...';
+            divs[i].textContent = `${divs[i].textContent.substring(0, 60)}...`;
         }
     }
 }
@@ -16,42 +28,18 @@ function hideStreamers() {
     hidden.forEach(item => item.classList.add('dream-hidden'));
 }
 
-function clickStreamers() {
-    const hidden = document.querySelectorAll('.dream-hidden');
 
-    const more = document.querySelectorAll('.add-more')[0];
-
-    more.onclick = function () {
-        if (more.classList.contains('hidden')) {
-            hidden.forEach(item => item.style.display = 'flex');
-            more.textContent = 'hide...';
-            more.classList.remove('hidden');
-        } else {
-            hidden.forEach(item => item.style.display = 'none');
-            more.textContent = 'more...';
-            more.classList.add('hidden');
-        }
-    };
-}
-
-
-window.addEventListener("load", function () {
-    console.log("ready")
-    const loader = document.querySelector(".loading");
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loading');
     const waiting = 0.5;
-    setTimeout(function () {
-        loader.classList.toggle("hide");
-    }, waiting * 1250);
-} )
-
-
-
+    setTimeout(() => loader.classList.toggle('hide'), waiting * 1250);
+});
 
 
 window.onload = () => {
-    cutString()
-    hideStreamers()
-    clickStreamers()
-    changeTitle()
-    listAppearing()
-}
+    cutString();
+    hideStreamers();
+    clickStreamers();
+    changeTitle();
+    listAppearing();
+};
