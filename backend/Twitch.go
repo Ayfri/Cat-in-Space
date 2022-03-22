@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -181,7 +180,6 @@ func (client *TwitchClient) IsLive(logins []string) (*StreamsResponse, error) {
 
 	for _, stream := range streams.Data {
 		if stream.UserLogin != "" {
-			fmt.Println(stream)
 			streams.Data = append(streams.Data, stream)
 		}
 	}
